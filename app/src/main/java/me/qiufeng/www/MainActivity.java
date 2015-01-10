@@ -13,8 +13,7 @@ import com.avos.avoscloud.FindCallback;
 
 import java.util.List;
 
-import DataModule.AVCompetition;
-import DataModule.AVMatch;
+import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 
 
 public class MainActivity extends ActionBarActivity {

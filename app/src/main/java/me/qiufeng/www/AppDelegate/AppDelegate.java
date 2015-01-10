@@ -5,8 +5,8 @@ import android.app.Application;
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
 
-import DataModule.AVCompetition;
-import DataModule.AVMatch;
+import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
+import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVMatch;
 import me.qiufeng.www.Config.Config;
 
 /**

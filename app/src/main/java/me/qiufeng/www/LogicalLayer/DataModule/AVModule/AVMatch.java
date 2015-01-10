@@ -1,9 +1,7 @@
-package DataModule;
+package me.qiufeng.www.LogicalLayer.DataModule.AVModule;
 
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
-
-import java.util.Date;
 
 /**
  * Created by QiuFeng on 2015/1/3.
