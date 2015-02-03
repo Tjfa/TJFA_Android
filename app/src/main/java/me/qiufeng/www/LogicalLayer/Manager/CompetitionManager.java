@@ -28,7 +28,7 @@ public class CompetitionManager {
     private CompetitionManager() {
     }
 
-    public void getEarlierCompetitionsFromeNetwork(int competitionId, int type, int limit,final FinishCallBack<Competition> callback ){
+    public void getEarlierCompetitionsFromNetwork(int competitionId, int type, int limit,final FinishCallBack<Competition> callback) {
         AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
         query.whereEqualTo("type", type);
         query.whereEqualTo("competitionId",competitionId);
@@ -44,6 +44,9 @@ public class CompetitionManager {
                   }
             }
         });
+    }
+
+    public void getLastestCompetitionsFormNetwork(int type, int limit, final FinishCallBack<Competition> callBack) {
 
     }
 

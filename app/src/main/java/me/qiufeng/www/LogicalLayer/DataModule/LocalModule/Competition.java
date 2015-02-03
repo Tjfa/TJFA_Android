@@ -4,17 +4,40 @@ import java.util.List;
 
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 
+import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
+
 /**
  * Created by QiuFeng on 2015/1/10.
  */
+
+@DatabaseTable(tableName = "Competition")
 public class Competition {
+
+    @DatabaseField()
     private int competitionId;
+
+    @DatabaseField()
     private int type;
+
+    @DatabaseField()
     private int isStart;
+
+    @DatabaseField(defaultValue = "")
     private String name;
+
+    @DatabaseField()
     private int number;
+
+    @DatabaseField()
     private List<Match> Matches;
+
+    @DatabaseField()
     private List<Player> players;
+
+    public Competition() {
+
+    }
 
     public int getCompetitionId() {
         return competitionId;
