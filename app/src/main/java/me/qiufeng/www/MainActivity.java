@@ -11,9 +11,13 @@ import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
 import com.avos.avoscloud.FindCallback;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 
 
 public class MainActivity extends ActionBarActivity {
@@ -22,17 +26,27 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
-        query.whereEqualTo("type", 1);
-        query.findInBackground(new FindCallback<AVCompetition>() {
+//        AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
+//        query.whereEqualTo("type", 1);
+//        query.findInBackground(new FindCallback<AVCompetition>() {
+//            @Override
+//            public void done(List<AVCompetition> avQueries, AVException e) {
+//                if (e==null) {
+//                    for (AVCompetition competition : avQueries) {
+//                        Log.i("","b");
+//                    }
+//                } else {
+//                    e.getMessage();
+//                }
+//            }
+//        });
+        NewsManager.sharedNewsManager().getNewsesFromNetwork(10,new FinishCallBack<News>() {
             @Override
-            public void done(List<AVCompetition> avQueries, AVException e) {
-                if (e==null) {
-                    for (AVCompetition competition : avQueries) {
-                        Log.i("","b");
-                    }
+            public void done(ArrayList<News> list, Exception e) {
+                if (e == null) {
+                    NewsManager.sharedNewsManager().description(list);
                 } else {
-                    e.getMessage();
+                   Log.e("network error",e.getMessage());
                 }
             }
         });

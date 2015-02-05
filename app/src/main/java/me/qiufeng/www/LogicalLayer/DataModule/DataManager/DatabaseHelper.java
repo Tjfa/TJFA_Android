@@ -15,6 +15,7 @@ import org.w3c.dom.UserDataHandler;
 import java.sql.SQLException;
 
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 
 /**
  * Created by QiuFeng on 2/3/15.
@@ -26,10 +27,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     private static final String TAG =  "DatabaseHelper";
     private static final String DATABASE_NAME = "TJFA.db";
     private static final int DATABASE_VERSION = 1;
+
     private Dao<Competition, Integer> competitionDao = null;
     private RuntimeExceptionDao<Competition, Integer> competitionRuntimeDao = null;
 
-
+    private Dao<News, Integer> newsDao = null;
+    private RuntimeExceptionDao<News, Integer> newsRuntimeDao = null;
 
     public DatabaseHelper(Context context) {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -39,8 +42,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         super(context,databaseName,factory,databaseVersion);
     }
 
-    private Dao<Competition, Integer> getCompetitionDao() throws  SQLException
-    {
+    private Dao<Competition, Integer> getCompetitionDao() throws  SQLException {
         if (competitionDao == null) {
             competitionDao = getDao(Competition.class);
         }
@@ -52,6 +54,20 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             competitionRuntimeDao = getRuntimeExceptionDao(Competition.class);
         }
         return  competitionRuntimeDao;
+    }
+
+    private Dao<News, Integer> getNewsDao() throws SQLException {
+        if (newsDao == null) {
+            newsDao = getDao(News.class);
+        }
+        return newsDao;
+    }
+
+    public RuntimeExceptionDao<News, Integer> getNewsRuntimeDao() {
+        if (newsRuntimeDao == null) {
+            newsRuntimeDao =  getRuntimeExceptionDao(News.class);
+        }
+        return newsRuntimeDao;
     }
 
     @Override
@@ -66,6 +82,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, Competition.class);
             competitionDao = getCompetitionDao();
             competitionRuntimeDao = getCompetitionRuntimeDao();
+
+            TableUtils.createTable(connectionSource, News.class);
+            newsDao = getNewsDao();
+            newsRuntimeDao = getNewsRuntimeDao();
         }
         catch (SQLException e) {
             Log.e(TAG,e.toString());

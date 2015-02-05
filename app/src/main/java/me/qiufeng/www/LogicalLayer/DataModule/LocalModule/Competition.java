@@ -14,7 +14,7 @@ import com.j256.ormlite.table.DatabaseTable;
 @DatabaseTable(tableName = "Competition")
 public class Competition {
 
-    @DatabaseField()
+    @DatabaseField(id = true)
     private int competitionId;
 
     @DatabaseField()
