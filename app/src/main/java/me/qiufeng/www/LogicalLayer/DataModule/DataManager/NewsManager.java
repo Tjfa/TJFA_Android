@@ -13,6 +13,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import me.qiufeng.www.AppDelegate.AppDelegate;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVNews;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 
@@ -33,7 +34,7 @@ public class NewsManager {
     }
 
     private NewsManager() {
-       // newsDao = DataAccess.sharedDatabaseHelper().getNewsRuntimeDao();
+        newsDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getNewsRuntimeDao();
     }
 
     private ArrayList<News> newsSort(List<News> result) {
@@ -85,15 +86,13 @@ public class NewsManager {
     public ArrayList<News> insertNewseWithAVNews(List<AVNews> avNewses) {
         ArrayList<News> result = new ArrayList<News>();
         for (AVNews avNews : avNewses) {
-            avNews.description();
-           // Competition competition=Competition.updateCompetitionWithAVCompetition(avCompetition);
             News news = new News();
             news.setNewsId(avNews.getNewsId());
             news.setTitle(avNews.getTitle());
             news.setPrecontent(avNews.getPrecontent());
             news.setContent(avNews.getContent());
             news.setDate(avNews.getDate());
-            //newsDao.createOrUpdate(news);
+            newsDao.createOrUpdate(news);
             result.add(news);
         }
 

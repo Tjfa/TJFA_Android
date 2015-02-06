@@ -42,6 +42,14 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         super(context,databaseName,factory,databaseVersion);
     }
 
+    private static DatabaseHelper instance;
+    public static DatabaseHelper getHelper(Context context) {
+        if (instance == null) {
+            instance = new DatabaseHelper(context);
+        }
+        return instance;
+    }
+
     private Dao<Competition, Integer> getCompetitionDao() throws  SQLException {
         if (competitionDao == null) {
             competitionDao = getDao(Competition.class);
@@ -74,6 +82,7 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         competitionRuntimeDao = null;
+        newsDao = null;
     }
 
     @Override

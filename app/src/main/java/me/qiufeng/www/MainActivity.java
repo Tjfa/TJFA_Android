@@ -26,31 +26,18 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
-//        query.whereEqualTo("type", 1);
-//        query.findInBackground(new FindCallback<AVCompetition>() {
+//        NewsManager.sharedNewsManager().getNewsesFromNetwork(10,new FinishCallBack<News>() {
 //            @Override
-//            public void done(List<AVCompetition> avQueries, AVException e) {
-//                if (e==null) {
-//                    for (AVCompetition competition : avQueries) {
-//                        Log.i("","b");
-//                    }
+//            public void done(ArrayList<News> list, Exception e) {
+//                if (e == null) {
+//                    NewsManager.sharedNewsManager().description(list);
 //                } else {
-//                    e.getMessage();
+//                   Log.e("network error",e.getMessage());
 //                }
 //            }
 //        });
-        NewsManager.sharedNewsManager().getNewsesFromNetwork(10,new FinishCallBack<News>() {
-            @Override
-            public void done(ArrayList<News> list, Exception e) {
-                if (e == null) {
-                    NewsManager.sharedNewsManager().description(list);
-                } else {
-                   Log.e("network error",e.getMessage());
-                }
-            }
-        });
-
+        List<News> list = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
+        NewsManager.sharedNewsManager().description(list);
 
         setContentView(R.layout.activity_main);
     }

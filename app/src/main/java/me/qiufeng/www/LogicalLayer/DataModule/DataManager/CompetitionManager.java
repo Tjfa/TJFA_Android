@@ -31,7 +31,7 @@ public class CompetitionManager {
     }
 
     private CompetitionManager() {
-        competitionDao = DataAccess.sharedDatabaseHelper().getCompetitionRuntimeDao();
+       // competitionDao = DataAccess.sharedDatabaseHelper().getCompetitionRuntimeDao();
     }
 
     public void updateCompetitionWithAVCompetition(AVCompetition avCompetition) {

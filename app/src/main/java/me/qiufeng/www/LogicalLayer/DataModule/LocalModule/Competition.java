@@ -29,10 +29,9 @@ public class Competition {
     @DatabaseField()
     private int number;
 
-    @DatabaseField()
+
     private List<Match> Matches;
 
-    @DatabaseField()
     private List<Player> players;
 
     public Competition() {
