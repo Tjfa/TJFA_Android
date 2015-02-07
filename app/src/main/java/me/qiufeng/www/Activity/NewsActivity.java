@@ -41,7 +41,7 @@ public class NewsActivity extends ActionBarActivity {
 
         adapter = new NewsCellAdapter(this);
         listView = (ListView)findViewById(R.id.list_view);
-        //listView.setAdapter(adapter);
+        listView.setAdapter(adapter);
 
 
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -125,7 +125,7 @@ public class NewsActivity extends ActionBarActivity {
             /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
             holder.title.setText(news.getTitle());
             holder.preContent.setText(news.getPrecontent());
-            holder.time.setText(news.getNewsId());
+           // holder.time.setText(news.getNewsId());
 
             return convertView;
         }
