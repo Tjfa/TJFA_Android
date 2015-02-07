@@ -2,19 +2,24 @@ package me.qiufeng.www.Activity;
 
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
 
 public class NewsDetailActivity extends ActionBarActivity {
 
-
+    private News news;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
+
+        news = (News)getIntent().getSerializableExtra("news");
+        Log.i("",news.getTitle());
     }
 
 

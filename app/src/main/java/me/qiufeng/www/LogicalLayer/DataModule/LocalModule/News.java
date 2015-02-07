@@ -3,6 +3,7 @@ package me.qiufeng.www.LogicalLayer.DataModule.LocalModule;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
+import java.io.Serializable;
 import java.util.Date;
 
 /**
@@ -10,7 +11,7 @@ import java.util.Date;
  */
 
 @DatabaseTable(tableName = "News")
-public class News {
+public class News implements Serializable {
 
     @DatabaseField(id = true)
     private int newsId;
