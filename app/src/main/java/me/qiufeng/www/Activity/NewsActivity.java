@@ -1,16 +1,25 @@
 package me.qiufeng.www.Activity;
 
+import android.content.Context;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.text.Layout;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Objects;
 
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
@@ -19,31 +28,28 @@ import me.qiufeng.www.R;
 public class NewsActivity extends ActionBarActivity {
 
     private ListView listView;
-    ArrayList<HashMap<String, String>> data = new ArrayList<>();
+    private NewsCellAdapter adapter;
+    ArrayList<News> data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        ArrayList<News> newsData = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
+        data = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
+        NewsManager.sharedNewsManager().description(data);
 
-        NewsManager.sharedNewsManager().description(newsData);
-
-        for (int i = 0; i < newsData.size(); i++) {
-            HashMap<String, String> map = new HashMap<>();
-            News news = newsData.get(i);
-            map.put("a",news.getTitle());
-            map.put("b",news.getPrecontent());
-            map.put("c",news.getTitle());
-            data.add(map);
-        }
-
+        adapter = new NewsCellAdapter(this);
         listView = (ListView)findViewById(R.id.list_view);
+        //listView.setAdapter(adapter);
 
-        SimpleAdapter adapter = new SimpleAdapter(this,data,R.layout.news_cell,new String[] {"a","b","c"},
-                new int[] {R.id.cell_title,R.id.cell_precontent,R.id.cell_time});
-        listView.setAdapter(adapter);
+
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Log.i("click at item","" + position);
+//            }
+//        });
     }
 
 
@@ -68,4 +74,68 @@ public class NewsActivity extends ActionBarActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+
+    class NewsCellAdapter extends BaseAdapter {
+
+        private LayoutInflater inflater;
+
+        public NewsCellAdapter(Context context) {
+            inflater = LayoutInflater.from(context);
+        }
+
+        @Override
+        public int getCount() {
+            return data.size();
+        }
+
+        @Override
+        public Object getItem(int position) {
+            return data.get(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return  position;
+
+        }
+
+
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            ViewHolder holder;
+
+            Log.v("MyListViewBase", "getView " + position + " " + convertView);
+
+            if (convertView == null) {
+                convertView = inflater.inflate(R.layout.news_cell,null);
+                holder = new ViewHolder();
+                    /*得到各个控件的对象*/
+                holder.title = (TextView) convertView.findViewById(R.id.cell_title);
+                holder.preContent = (TextView) convertView.findViewById(R.id.cell_precontent);
+                holder.time = (TextView) convertView.findViewById(R.id.cell_time);
+                convertView.setTag(holder);//绑定ViewHolder对象
+            } else {
+                holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
+            }
+
+
+            News news = (News)getItem(position);
+
+            /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
+            holder.title.setText(news.getTitle());
+            holder.preContent.setText(news.getPrecontent());
+            holder.time.setText(news.getNewsId());
+
+            return convertView;
+        }
+
+
+        public final class ViewHolder {
+            public TextView title;
+            public TextView preContent;
+            public TextView time;
+        }
+    }
 }
+
