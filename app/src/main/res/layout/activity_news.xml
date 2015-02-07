@@ -1,0 +1,14 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    tools:context="me.qiufeng.www.Activity.NewsActivity" >
+
+    <ListView
+        android:background="@color/red"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/list_view"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"/>
+</RelativeLayout>
