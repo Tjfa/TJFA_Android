@@ -1,10 +1,12 @@
 package me.qiufeng.www.Activity;
 
+import android.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.webkit.WebView;
 
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
@@ -12,14 +14,28 @@ import me.qiufeng.www.R;
 public class NewsDetailActivity extends ActionBarActivity {
 
     private News news;
+    private WebView webView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
 
+
         news = (News)getIntent().getSerializableExtra("news");
+
+       // ActionBar actionBar = getActionBar();
+       // actionBar.setTitle(news.getTitle());
+
+        setTitle(news.getTitle());
+
+        webView = (WebView)findViewById(R.id.webview);
+        webView.loadDataWithBaseURL(null,news.getContent(),"text/html", "utf-8",null);
+
+
+
         Log.i("",news.getTitle());
+
     }
 
 

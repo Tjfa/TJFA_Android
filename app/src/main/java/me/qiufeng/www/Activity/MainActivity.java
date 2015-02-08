@@ -1,26 +1,13 @@
 package me.qiufeng.www.Activity;
 
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import com.avos.avoscloud.AVException;
-import com.avos.avoscloud.AVObject;
-import com.avos.avoscloud.AVQuery;
-import com.avos.avoscloud.FindCallback;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
-import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
-import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
-import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
 
 

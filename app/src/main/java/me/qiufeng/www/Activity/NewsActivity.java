@@ -2,9 +2,8 @@ package me.qiufeng.www.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
-import android.text.Layout;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,15 +11,11 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Objects;
 
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
@@ -37,11 +32,12 @@ public class NewsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+        listView = (ListView)findViewById(R.id.list_view);
+        adapter = new NewsCellAdapter(this);
+
         data = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
         NewsManager.sharedNewsManager().description(data);
 
-        adapter = new NewsCellAdapter(this);
-        listView = (ListView)findViewById(R.id.list_view);
         listView.setAdapter(adapter);
 
 
@@ -52,7 +48,7 @@ public class NewsActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("news",data.get(position));
+                bundle.putSerializable("news", data.get(position));
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
