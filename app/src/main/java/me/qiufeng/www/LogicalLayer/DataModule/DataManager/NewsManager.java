@@ -37,6 +37,11 @@ public class NewsManager {
         newsDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getNewsRuntimeDao();
     }
 
+    public void updateNewsToRead(News news) {
+        news.setIsRead(true);
+        newsDao.update(news);
+    }
+
     private ArrayList<News> newsSort(List<News> result) {
         ArrayList<News> newses = new ArrayList<>();
         for (News news : result) {

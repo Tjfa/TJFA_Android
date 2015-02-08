@@ -32,7 +32,7 @@ public class AVCompetition extends AVObject {
         put("number", number);
     }
 
-    public int getNumber(int number) {
+    public int getNumber() {
         return getInt("number");
     }
 

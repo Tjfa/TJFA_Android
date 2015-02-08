@@ -11,6 +11,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
+import me.qiufeng.www.AppDelegate.AppDelegate;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
 
@@ -31,7 +32,7 @@ public class CompetitionManager {
     }
 
     private CompetitionManager() {
-       // competitionDao = DataAccess.sharedDatabaseHelper().getCompetitionRuntimeDao();
+        competitionDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getCompetitionRuntimeDao();
     }
 
     public void updateCompetitionWithAVCompetition(AVCompetition avCompetition) {
@@ -39,13 +40,12 @@ public class CompetitionManager {
         //competition.setCompetitionId(avCompetition.getInt(""));
     }
 
-
-
     public void getEarlierCompetitionsFromNetwork(int competitionId, int type, int limit,final FinishCallBack<Competition> callback) {
         AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
         query.whereEqualTo("type", type);
-        query.whereEqualTo("competitionId",competitionId);
+       // query.whereGreaterThanOrEqualTo()
         query.limit(limit);
+
         query.findInBackground(new FindCallback<AVCompetition>() {
             @Override
             public void done(List<AVCompetition> avCompetitions, AVException e) {
@@ -60,23 +60,52 @@ public class CompetitionManager {
     }
 
     public void getLastestCompetitionsFormNetwork(int type, int limit, final FinishCallBack<Competition> callBack) {
+        AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
+        query.whereEqualTo("type",type);
+        query.limit(limit);
 
+
+        query.findInBackground(new FindCallback<AVCompetition>() {
+            @Override
+            public void done(List<AVCompetition> avCompetitions, AVException e) {
+                if (e != null) {
+                    callBack.done(null,e);
+                } else {
+                    ArrayList<Competition> result = insertCompetitionsAVCompetition(avCompetitions);
+                    callBack.done(result,null);
+                }
+            }
+        });
     }
 
     public ArrayList<Competition> insertCompetitionsAVCompetition(List<AVCompetition> list) {
         ArrayList<Competition> result = new ArrayList<>();
         for (AVCompetition avCompetition : list) {
-            Competition competition=Competition.updateCompetitionWithAVCompetition(avCompetition);
+            Competition competition = new Competition();
+            competition.setCompetitionId(avCompetition.getCompetitionId());
+            competition.setName(avCompetition.getName());
+            competition.setIsStart(avCompetition.getIsStart());
+            competition.setType(avCompetition.getType());
+            competition.setNumber(avCompetition.getNumber());
+            competitionDao.createOrUpdate(competition);
             result.add(competition);
         }
+        return competitionsSort(result);
+    }
 
-        Collections.sort(result, new Comparator<Competition>() {
+    private ArrayList<Competition> competitionsSort(List<Competition> result) {
+        ArrayList<Competition> competitions = new ArrayList<>();
+        for (Competition competition : result) {
+            competitions.add(competition);
+        }
+
+        Collections.sort(competitions, new Comparator<Competition>() {
             @Override
             public int compare(Competition lhs, Competition rhs) {
                 return rhs.getCompetitionId() - lhs.getCompetitionId();
             }
         });
-        return  result;
+        return competitions;
     }
 
 }

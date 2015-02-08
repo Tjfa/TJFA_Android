@@ -1,5 +1,6 @@
 package me.qiufeng.www.LogicalLayer.DataModule.LocalModule;
 
+import com.j256.ormlite.field.DataType;
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -27,6 +28,9 @@ public class News implements Serializable {
 
     @DatabaseField()
     private Date date;
+
+    @DatabaseField(dataType = DataType.BOOLEAN, defaultValue = "false")
+    private boolean isRead;
 
     public int getNewsId() {
         return newsId;
@@ -66,5 +70,13 @@ public class News implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public boolean getIsRead() {
+        return isRead;
+    }
+
+    public void setIsRead(boolean isRead) {
+        this.isRead = isRead;
     }
 }

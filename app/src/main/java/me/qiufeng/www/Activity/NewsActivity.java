@@ -15,6 +15,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
@@ -35,7 +36,7 @@ public class NewsActivity extends ActionBarActivity {
         listView = (ListView)findViewById(R.id.list_view);
         adapter = new NewsCellAdapter(this);
 
-        data = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
+        data = NewsManager.sharedNewsManager.getAllNewsFromDatabase();
         NewsManager.sharedNewsManager().description(data);
 
         listView.setAdapter(adapter);
@@ -48,7 +49,9 @@ public class NewsActivity extends ActionBarActivity {
 
                 Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
                 Bundle bundle = new Bundle();
-                bundle.putSerializable("news", data.get(position));
+                News news = data.get(position);
+                NewsManager.sharedNewsManager().updateNewsToRead(news);
+                bundle.putSerializable("news", news);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -128,6 +131,9 @@ public class NewsActivity extends ActionBarActivity {
             /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
             holder.title.setText(news.getTitle());
             holder.preContent.setText(news.getPrecontent());
+
+            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+            holder.time.setText(format.format(news.getDate()));
            // holder.time.setText(news.getNewsId());
 
             return convertView;

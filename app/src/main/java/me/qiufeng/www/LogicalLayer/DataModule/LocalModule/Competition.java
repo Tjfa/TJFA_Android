@@ -94,7 +94,4 @@ public class Competition {
         this.players = players;
     }
 
-    static  public Competition updateCompetitionWithAVCompetition(AVCompetition competition) {
-        return  null;
-    }
 }
