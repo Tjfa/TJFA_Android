@@ -33,7 +33,7 @@ public class NewsActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        listView = (ListView)findViewById(R.id.list_view);
+        listView = (ListView)findViewById(R.id.news_list_view);
         adapter = new NewsCellAdapter(this);
 
         data = NewsManager.sharedNewsManager.getAllNewsFromDatabase();
@@ -116,7 +116,8 @@ public class NewsActivity extends ActionBarActivity {
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.news_cell,null);
                 holder = new ViewHolder();
-                    /*得到各个控件的对象*/
+
+                /*得到各个控件的对象*/
                 holder.title = (TextView) convertView.findViewById(R.id.cell_title);
                 holder.preContent = (TextView) convertView.findViewById(R.id.cell_precontent);
                 holder.time = (TextView) convertView.findViewById(R.id.cell_time);

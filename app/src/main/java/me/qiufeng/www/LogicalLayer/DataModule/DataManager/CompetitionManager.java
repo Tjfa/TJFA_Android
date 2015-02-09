@@ -1,5 +1,7 @@
 package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
+import android.util.Log;
+
 import com.avos.avoscloud.AVException;
 import com.avos.avoscloud.AVObject;
 import com.avos.avoscloud.AVQuery;
@@ -59,7 +61,7 @@ public class CompetitionManager {
         });
     }
 
-    public void getLastestCompetitionsFormNetwork(int type, int limit, final FinishCallBack<Competition> callBack) {
+    public void getLastestCompetitionsFromNetwork(int type, int limit, final FinishCallBack<Competition> callBack) {
         AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
         query.whereEqualTo("type",type);
         query.limit(limit);
@@ -87,6 +89,7 @@ public class CompetitionManager {
             competition.setIsStart(avCompetition.getIsStart());
             competition.setType(avCompetition.getType());
             competition.setNumber(avCompetition.getNumber());
+            competition.setTime(avCompetition.getTime());
             competitionDao.createOrUpdate(competition);
             result.add(competition);
         }
@@ -108,4 +111,11 @@ public class CompetitionManager {
         return competitions;
     }
 
+
+    //for debug
+    public void description(List<Competition> competitions) {
+        for (Competition competition : competitions) {
+            Log.i("",competition.getCompetitionId() + ":" + competition.getName() );
+        }
+    }
 }

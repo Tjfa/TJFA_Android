@@ -18,6 +18,9 @@ public class Competition {
     private int competitionId;
 
     @DatabaseField()
+    private String time;
+
+    @DatabaseField()
     private int type;
 
     @DatabaseField()
@@ -94,4 +97,11 @@ public class Competition {
         this.players = players;
     }
 
+    public String getTime() {
+        return time;
+    }
+
+    public void setTime(String time) {
+        this.time = time;
+    }
 }

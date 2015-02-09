@@ -6,11 +6,11 @@
 
 
     <ImageView
-        android:layout_width="15dp"
-        android:layout_height="15dp"
+        android:layout_width="@dimen/cell_indicator_width"
+        android:layout_height="@dimen/cell_indiator_height"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="@dimen/cell_right_margin"
         android:src="@drawable/ic_launcher" />
 
     <LinearLayout

@@ -48,6 +48,16 @@ public class MainActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        Button competitionButton = (Button)findViewById(R.id.competition_button);
+        competitionButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent();
+                intent.setClass(MainActivity.this,CompetitionActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
 
