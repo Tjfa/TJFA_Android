@@ -96,6 +96,15 @@ public class CompetitionManager {
         return competitionsSort(result);
     }
 
+    public void sortWithTime(ArrayList<Competition> list) {
+        Collections.sort(list, new Comparator<Competition>() {
+            @Override
+            public int compare(Competition lhs, Competition rhs) {
+                return  rhs.getTime().compareTo(lhs.getTime());
+            }
+        });
+    }
+
     private ArrayList<Competition> competitionsSort(List<Competition> result) {
         ArrayList<Competition> competitions = new ArrayList<>();
         for (Competition competition : result) {

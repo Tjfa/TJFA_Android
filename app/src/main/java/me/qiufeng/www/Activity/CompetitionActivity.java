@@ -1,8 +1,8 @@
 package me.qiufeng.www.Activity;
 
 import android.content.Context;
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,7 +15,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.CompetitionManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
@@ -37,6 +36,12 @@ public class CompetitionActivity extends ActionBarActivity {
 
         type = 2;
 
+        if (type == 1) {
+            setTitle("本部");
+        } else {
+            setTitle("嘉定");
+        }
+
         listView =(ListView) findViewById(R.id.competition_list_view);
         adapter = new CompetitionCellAdapter(this);
         listView.setAdapter(adapter);
@@ -44,18 +49,33 @@ public class CompetitionActivity extends ActionBarActivity {
         CompetitionManager.sharedCompetitionManager().getLastestCompetitionsFromNetwork(type,10,new FinishCallBack<Competition>() {
             @Override
             public void done(ArrayList<Competition> list, Exception e) {
-                CompetitionManager.sharedCompetitionManager().description(list);
-                //data = list;
-                for (Competition competition : list) {
-                    ArrayList<Competition> newList = new ArrayList<Competition>();
-                    newList.add(competition);
-                    data.add(newList);
+                if (e == null) {
+                    CompetitionManager.sharedCompetitionManager().description(list);
+                    data = getDataListWithCompetitionList(list);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    Log.e("",e.getMessage());
                 }
-                adapter.notifyDataSetChanged();
             }
         });
     }
 
+    private ArrayList<ArrayList<Competition>> getDataListWithCompetitionList(ArrayList<Competition> list) {
+
+        CompetitionManager.sharedCompetitionManager().sortWithTime(list);
+        ArrayList<ArrayList<Competition>> result = new ArrayList<>();
+
+        ArrayList<Competition> lastArray = null;
+        for (Competition competition : list) {
+            if (lastArray == null || !lastArray.get(0).getTime().equals(competition.getTime())) {
+                lastArray = new ArrayList<>();
+                result.add(lastArray);
+            }
+            lastArray.add(competition);
+        }
+
+        return result;
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -166,10 +186,9 @@ public class CompetitionActivity extends ActionBarActivity {
             }
 
             Competition competition = (Competition)getItem(position);
-            Log.i("","position:" + position +competition.getName());
             switch (rowType) {
                 case SectionHeader:
-                    holder.title.setText(competition.getTime());
+                    holder.title.setText(getTitleTimeFromCompetition(competition.getTime()));
                     break;
                 case CompetitionCell:
                     holder.title.setText(competition.getName());
@@ -178,6 +197,20 @@ public class CompetitionActivity extends ActionBarActivity {
 
             return convertView;
         }
+
+        private String getTitleTimeFromCompetition(String time) {
+            if (time == null || time.equals("")) {
+                return "";
+            }
+
+            String term = time.substring(time.length() - 1,time.length());
+            if (term.equals("1")) {
+                return time.substring(0,time.length() - 1) + " 年上学期";
+            } else {
+                return time.substring(0,time.length() - 1) + " 年下学期";
+            }
+        }
+
 
         final class ViewHolder {
             ImageView cupImage;
