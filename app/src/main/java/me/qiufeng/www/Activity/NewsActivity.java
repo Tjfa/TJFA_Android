@@ -15,9 +15,14 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.walnutlabs.android.ProgressHUD;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
+import me.qiufeng.www.Category.TJFAProgressHUD;
+import me.qiufeng.www.Const.AppConst;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
@@ -27,26 +32,25 @@ public class NewsActivity extends ActionBarActivity {
     private ListView listView;
     private NewsCellAdapter adapter;
     ArrayList<News> data;
+    ProgressHUD progressHUD;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+        data = NewsManager.sharedNewsManager.getAllNewsFromDatabase();
+        if (data == null || data.isEmpty()) {
+            loadLasterData(true);
+        }
+
         listView = (ListView)findViewById(R.id.news_list_view);
         adapter = new NewsCellAdapter(this);
-
-        data = NewsManager.sharedNewsManager.getAllNewsFromDatabase();
-        NewsManager.sharedNewsManager().description(data);
-
         listView.setAdapter(adapter);
-
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("click at item","" + position);
-
                 Intent intent = new Intent(NewsActivity.this, NewsDetailActivity.class);
                 Bundle bundle = new Bundle();
                 News news = data.get(position);
@@ -81,6 +85,28 @@ public class NewsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+
+    private void loadLasterData(final boolean showProgressHUD) {
+        if (showProgressHUD) {
+            progressHUD = ProgressHUD.show(NewsActivity.this, "载入中", true, false, null);
+        }
+
+        NewsManager.sharedNewsManager.getNewsesFromNetwork(AppConst.defalutlLimit,new FinishCallBack<News>() {
+            @Override
+            public void done(ArrayList<News> list, Exception e) {
+                if (showProgressHUD) {
+                    progressHUD.dismiss();
+                }
+
+                if (e == null) {
+                    data = list;
+                    adapter.notifyDataSetChanged();
+                } else {
+                    TJFAProgressHUD.showErrorProgress(NewsActivity.this);
+                }
+            }
+        });
+    }
 
     class NewsCellAdapter extends BaseAdapter {
 

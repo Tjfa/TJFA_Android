@@ -18,6 +18,7 @@ import com.walnutlabs.android.ProgressHUD;
 
 import java.util.ArrayList;
 
+import me.qiufeng.www.Category.TJFAProgressHUD;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.CompetitionManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
@@ -37,7 +38,6 @@ public class CompetitionActivity extends ActionBarActivity {
         setContentView(R.layout.activity_competition);
 
         type = 2;
-        ProgressHUD progressHUD = null;
         if (type == 1) {
             setTitle("本部");
         } else {
