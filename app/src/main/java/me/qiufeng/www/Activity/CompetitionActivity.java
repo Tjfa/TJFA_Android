@@ -14,6 +14,8 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.walnutlabs.android.ProgressHUD;
+
 import java.util.ArrayList;
 
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.CompetitionManager;
@@ -35,7 +37,7 @@ public class CompetitionActivity extends ActionBarActivity {
         setContentView(R.layout.activity_competition);
 
         type = 2;
-
+        ProgressHUD progressHUD = null;
         if (type == 1) {
             setTitle("本部");
         } else {
