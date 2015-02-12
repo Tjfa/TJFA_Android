@@ -13,8 +13,8 @@ public class TJFAProgressHUD {
     static ProgressHUD errorProgress;
 
 
-    public static void showErrorProgress(Context context) {
-        errorProgress = ProgressHUD.show(context, "网络错误", true, false, null);
+    public static void showErrorProgress(Context context, String message) {
+        errorProgress = ProgressHUD.show(context, message, true, false, null);
 
         new Thread(new Runnable(){
             public void run(){
@@ -28,7 +28,18 @@ public class TJFAProgressHUD {
                 }
             }
         }).start();
+    }
 
+    public static void showErrorProgress(Context context) {
+        showErrorProgress(context,"网络错误");
+    }
 
+    public static ProgressHUD showLoadingProgress(Context context, String message) {
+        loadingProgress = ProgressHUD.show(context, message, true, false, null);
+        return loadingProgress;
+    }
+
+    public static ProgressHUD showLoadingProgress(Context context) {
+        return showLoadingProgress(context, "载入中..");
     }
 }

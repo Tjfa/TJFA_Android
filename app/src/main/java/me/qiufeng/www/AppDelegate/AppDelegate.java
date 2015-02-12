@@ -10,6 +10,7 @@ import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVMatch;
 import me.qiufeng.www.Config.Config;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVNews;
+import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVPlayer;
 
 /**
  * Created by QiuFeng on 2015/1/3.
@@ -28,6 +29,7 @@ public class AppDelegate extends Application {
         AVObject.registerSubclass(AVCompetition.class);
         AVObject.registerSubclass(AVMatch.class);
         AVObject.registerSubclass(AVNews.class);
+        AVObject.registerSubclass(AVPlayer.class);
     }
 
     static public Context getAppContext () {

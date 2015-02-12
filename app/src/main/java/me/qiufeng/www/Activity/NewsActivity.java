@@ -41,7 +41,7 @@ public class NewsActivity extends ActionBarActivity {
 
         data = NewsManager.sharedNewsManager.getAllNewsFromDatabase();
         if (data == null || data.isEmpty()) {
-            loadLasterData(true);
+            loadLastestData(true);
         }
 
         listView = (ListView)findViewById(R.id.news_list_view);
@@ -86,7 +86,7 @@ public class NewsActivity extends ActionBarActivity {
     }
 
 
-    private void loadLasterData(final boolean showProgressHUD) {
+    private void loadLastestData(final boolean showProgressHUD) {
         if (showProgressHUD) {
             progressHUD = ProgressHUD.show(NewsActivity.this, "载入中", true, false, null);
         }
