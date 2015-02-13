@@ -1,6 +1,7 @@
 package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
 
@@ -15,7 +16,10 @@ import org.w3c.dom.UserDataHandler;
 import java.sql.SQLException;
 
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 
 /**
  * Created by QiuFeng on 2/3/15.
@@ -33,6 +37,15 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
 
     private Dao<News, Integer> newsDao = null;
     private RuntimeExceptionDao<News, Integer> newsRuntimeDao = null;
+
+    private Dao<Player, Integer> playerDao = null;
+    private RuntimeExceptionDao<Player, Integer> playerRuntimeDao = null;
+
+    private Dao<Match, Integer> matchDao = null;
+    private RuntimeExceptionDao<Match, Integer> matchRuntimeDao = null;
+
+    private Dao<Team, Integer> teamDao = null;
+    private RuntimeExceptionDao<Team, Integer> teamRuntimeDao = null;
 
     public DatabaseHelper(Context context) {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
@@ -78,11 +91,56 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         return newsRuntimeDao;
     }
 
+    public RuntimeExceptionDao<Match, Integer> getMatchRuntimeDao()  {
+        if (matchRuntimeDao == null) {
+            matchRuntimeDao = getRuntimeExceptionDao(Match.class);
+        }
+        return matchRuntimeDao;
+    }
+
+    private Dao<Match, Integer> getMatchDao() throws SQLException {
+        if (matchDao == null) {
+            matchDao = getDao(Match.class);
+        }
+        return matchDao;
+    }
+
+    public RuntimeExceptionDao<Player, Integer> getPlayerRuntimeDao() {
+        if (playerRuntimeDao == null) {
+            playerRuntimeDao = getRuntimeExceptionDao(Player.class);
+        }
+        return playerRuntimeDao;
+    }
+
+    private Dao<Player, Integer> getPlayerDao() throws SQLException {
+        if (playerDao == null) {
+            playerDao = getDao(Player.class);
+        }
+        return playerDao;
+    }
+
+    public RuntimeExceptionDao<Team, Integer> getTeamRuntimeDao() {
+        if (teamRuntimeDao == null) {
+            teamRuntimeDao = getRuntimeExceptionDao(Team.class);
+        }
+        return teamRuntimeDao;
+    }
+
+    private Dao<Team, Integer> getTeamDao() throws SQLException {
+        if (teamDao == null) {
+            teamDao = getDao(Team.class);
+        }
+        return teamDao;
+    }
+
     @Override
     public void close() {
         super.close();
         competitionRuntimeDao = null;
         newsDao = null;
+        matchDao = null;
+        teamDao = null;
+        playerDao = null;
     }
 
     @Override
@@ -95,6 +153,18 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
             TableUtils.createTable(connectionSource, News.class);
             newsDao = getNewsDao();
             newsRuntimeDao = getNewsRuntimeDao();
+
+            TableUtils.createTable(connectionSource, Match.class);
+            matchDao = getMatchDao();
+            matchRuntimeDao = getMatchRuntimeDao();
+
+            TableUtils.createTable(connectionSource, Player.class);
+            playerDao = getPlayerDao();
+            playerRuntimeDao = getPlayerRuntimeDao();
+
+            TableUtils.createTable(connectionSource, Team.class);
+            teamDao = getTeamDao();
+            teamRuntimeDao = getTeamRuntimeDao();
         }
         catch (SQLException e) {
             Log.e(TAG,e.toString());
