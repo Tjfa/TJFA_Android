@@ -104,4 +104,9 @@ public class NewsManager {
         return newsSort(result);
     }
 
+
+    public void deleteAll() {
+        List<News> list = newsDao.queryForAll();
+        newsDao.delete(list);
+    }
 }

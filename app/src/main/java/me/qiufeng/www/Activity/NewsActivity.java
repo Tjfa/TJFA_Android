@@ -91,7 +91,7 @@ public class NewsActivity extends ActionBarActivity {
             progressHUD = ProgressHUD.show(NewsActivity.this, "载入中", true, false, null);
         }
 
-        NewsManager.sharedNewsManager.getNewsesFromNetwork(AppConst.defalutlLimit,new FinishCallBack<News>() {
+        NewsManager.sharedNewsManager.getNewsesFromNetwork(AppConst.defalultLimit,new FinishCallBack<News>() {
             @Override
             public void done(ArrayList<News> list, Exception e) {
                 if (showProgressHUD) {
@@ -129,9 +129,7 @@ public class NewsActivity extends ActionBarActivity {
         @Override
         public long getItemId(int position) {
             return  position;
-
         }
-
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
@@ -152,17 +150,13 @@ public class NewsActivity extends ActionBarActivity {
                 holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
             }
 
-
             News news = (News)getItem(position);
-
             /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
             holder.title.setText(news.getTitle());
             holder.preContent.setText(news.getPrecontent());
 
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
             holder.time.setText(format.format(news.getDate()));
-           // holder.time.setText(news.getNewsId());
-
             return convertView;
         }
 

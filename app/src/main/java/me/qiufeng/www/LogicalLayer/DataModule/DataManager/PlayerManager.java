@@ -2,6 +2,8 @@ package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import java.util.List;
+
 import me.qiufeng.www.AppDelegate.AppDelegate;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
 
@@ -21,5 +23,10 @@ public class PlayerManager {
 
     private PlayerManager() {
         playerDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getPlayerRuntimeDao();
+    }
+
+    public void deleteAll() {
+        List<Player> list = playerDao.queryForAll();
+        playerDao.delete(list);
     }
 }

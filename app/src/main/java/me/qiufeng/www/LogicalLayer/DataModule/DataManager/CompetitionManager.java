@@ -127,4 +127,9 @@ public class CompetitionManager {
             Log.i("",competition.getCompetitionId() + ":" + competition.getName() );
         }
     }
+
+    public void deleteAll() {
+        List<Competition> list = competitionDao.queryForAll();
+        competitionDao.delete(list);
+    }
 }

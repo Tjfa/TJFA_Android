@@ -21,17 +21,11 @@ public class NewsDetailActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news_detail);
 
-
         news = (News)getIntent().getSerializableExtra("news");
 
         setTitle(news.getTitle());
         webView = (WebView)findViewById(R.id.webview);
         webView.loadDataWithBaseURL(null,news.getContent(),"text/html", "utf-8",null);
-
-
-
-        Log.i("",news.getTitle());
-
     }
 
 

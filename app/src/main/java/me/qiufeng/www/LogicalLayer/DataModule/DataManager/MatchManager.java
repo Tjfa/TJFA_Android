@@ -2,6 +2,8 @@ package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import java.util.List;
+
 import me.qiufeng.www.AppDelegate.AppDelegate;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
 
@@ -21,5 +23,10 @@ public class MatchManager {
 
     private MatchManager() {
         matchDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getMatchRuntimeDao();
+    }
+
+    public void deleteAll() {
+        List<Match> list = matchDao.queryForAll();
+        matchDao.delete(list);
     }
 }

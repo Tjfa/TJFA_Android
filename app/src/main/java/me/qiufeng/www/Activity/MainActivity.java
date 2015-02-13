@@ -24,19 +24,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-//        NewsManager.sharedNewsManager().getNewsesFromNetwork(10,new FinishCallBack<News>() {
-//            @Override
-//            public void done(ArrayList<News> list, Exception e) {
-//                if (e == null) {
-//                    NewsManager.sharedNewsManager().description(list);
-//                } else {
-//                   Log.e("network error", e.getMessage());
-//                }
-//            }
-//        });
-        List<News> list = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
-        NewsManager.sharedNewsManager().description(list);
-
         setContentView(R.layout.activity_main);
 
         Button newsButton = (Button)findViewById(R.id.news_button);
