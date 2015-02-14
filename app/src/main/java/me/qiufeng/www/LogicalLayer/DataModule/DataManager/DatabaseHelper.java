@@ -15,6 +15,7 @@ import org.w3c.dom.UserDataHandler;
 
 import java.sql.SQLException;
 
+import me.qiufeng.www.AppDelegate.AppDelegate;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
@@ -51,14 +52,27 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
         super(context,DATABASE_NAME,null,DATABASE_VERSION);
     }
 
+    public void clearAllTable() {
+        try {
+            ConnectionSource connectionSource = getConnectionSource();
+            TableUtils.clearTable(connectionSource, News.class);
+            TableUtils.clearTable(connectionSource, Match.class);
+            TableUtils.clearTable(connectionSource, Team.class);
+            TableUtils.clearTable(connectionSource, Player.class);
+            TableUtils.clearTable(connectionSource, Competition.class);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     public DatabaseHelper(Context context, String databaseName, SQLiteDatabase.CursorFactory factory, int databaseVersion) {
         super(context,databaseName,factory,databaseVersion);
     }
 
     private static DatabaseHelper instance;
-    public static DatabaseHelper getHelper(Context context) {
+    public static DatabaseHelper getHelper() {
         if (instance == null) {
-            instance = new DatabaseHelper(context);
+            instance = new DatabaseHelper(AppDelegate.getAppContext());
         }
         return instance;
     }
@@ -176,6 +190,12 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, ConnectionSource connectionSource, int i, int i2) {
         try {
             TableUtils.dropTable(connectionSource, UserDataHandler.class, true);
+
+            TableUtils.dropTable(connectionSource, Competition.class,true);
+            TableUtils.dropTable(connectionSource, Match.class,true);
+            TableUtils.dropTable(connectionSource, News.class,true);
+            TableUtils.dropTable(connectionSource, Player.class,true);
+            TableUtils.dropTable(connectionSource, Team.class,true);
         }
         catch (SQLException e) {
             Log.e(TAG, e.toString());

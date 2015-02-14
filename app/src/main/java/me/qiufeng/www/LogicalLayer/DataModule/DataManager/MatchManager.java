@@ -1,11 +1,17 @@
 package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
+import com.avos.avoscloud.AVException;
+import com.avos.avoscloud.AVQuery;
+import com.avos.avoscloud.FindCallback;
 import com.j256.ormlite.dao.RuntimeExceptionDao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import me.qiufeng.www.AppDelegate.AppDelegate;
+import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVMatch;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 
 /**
  * Created by QiuFeng on 2/13/15.
@@ -22,11 +28,52 @@ public class MatchManager {
     }
 
     private MatchManager() {
-        matchDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getMatchRuntimeDao();
+        matchDao = DatabaseHelper.getHelper().getMatchRuntimeDao();
     }
 
-    public void deleteAll() {
-        List<Match> list = matchDao.queryForAll();
-        matchDao.delete(list);
+    public void getMatchesFromNetwork(final int competitionId, final FinishCallBack<Match> callBack) {
+        TeamManager.sharedTeamManager().getTeamFromNetwork(competitionId, new FinishCallBack<Team>() {
+            @Override
+            public void done(ArrayList<Team> list, Exception e) {
+                if (e == null) {
+                    AVQuery<AVMatch> query = AVQuery.getQuery(AVMatch.class);
+                    query.limit(1000);
+                    query.whereEqualTo("competitionId",competitionId);
+                    query.findInBackground(new FindCallback<AVMatch>() {
+                        @Override
+                        public void done(List<AVMatch> avMatches, AVException e) {
+                            ArrayList<Match> matches = updateMatches(avMatches);
+                            if (callBack != null) {
+                                callBack.done(matches,null);
+                            }
+                        }
+                    });
+                } else {
+                    callBack.done(null, e);
+                }
+            }
+        });
+    }
+
+    public ArrayList<Match> updateMatches(List<AVMatch> avMatches) {
+        ArrayList<Match> matches = new ArrayList<>();
+        for (AVMatch avMatch : avMatches) {
+            Match match = new Match();
+            match.setMatchId(avMatch.getMatchId());
+            match.setDate(avMatch.getDate());
+            match.setCompetitionId(avMatch.getCompetitionId());
+            match.setHint(avMatch.getHint());
+            match.setIsStart(avMatch.getIsStart());
+            match.setMatchProperty(avMatch.getMatchProperty());
+            match.setScoreA(avMatch.getScoreA());
+            match.setScoreB(avMatch.getScoreB());
+            match.setTeamAId(avMatch.getTeamAId());
+            match.setTeamBId(avMatch.getTeamBId());
+            match.setPenaltyA(avMatch.getPenaltyA());
+            match.setPenaltyB(avMatch.getPenaltyB());
+            matchDao.createOrUpdate(match);
+            matches.add(match);
+        }
+        return matches;
     }
 }

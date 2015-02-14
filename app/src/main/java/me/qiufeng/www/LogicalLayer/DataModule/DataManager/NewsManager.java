@@ -35,7 +35,7 @@ public class NewsManager {
     }
 
     private NewsManager() {
-        newsDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getNewsRuntimeDao();
+        newsDao = DatabaseHelper.getHelper().getNewsRuntimeDao();
     }
 
     public void updateNewsToRead(News news) {
@@ -118,11 +118,5 @@ public class NewsManager {
         }
 
         return newsSort(result);
-    }
-
-
-    public void deleteAll() {
-        List<News> list = newsDao.queryForAll();
-        newsDao.delete(list);
     }
 }

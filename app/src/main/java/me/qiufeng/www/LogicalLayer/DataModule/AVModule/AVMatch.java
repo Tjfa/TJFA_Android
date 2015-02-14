@@ -43,11 +43,11 @@ public class AVMatch extends AVObject {
         put("scoreA",scoreA);
     }
 
-    public int getScroeB() {
+    public int getScoreB() {
         return getInt("scoreB");
     }
 
-    public void setScroeB(int scroeB) {
+    public void setScoreB(int scroeB) {
         put("scoreB",scroeB);
     }
 

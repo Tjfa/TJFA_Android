@@ -1,5 +1,7 @@
 package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
+import me.qiufeng.www.AppDelegate.AppDelegate;
+
 /**
  * Created by QiuFeng on 2/13/15.
  */
@@ -17,12 +19,8 @@ public class DatabaseManager {
 
     }
 
-    public void deleteAll() {
-        MatchManager.sharedMatchManager().deleteAll();
-        PlayerManager.sharedPlayerManager().deleteAll();
-        TeamManager.sharedTeamManager().deleteAll();
-        NewsManager.sharedNewsManager().deleteAll();
-        CompetitionManager.sharedCompetitionManager().deleteAll();
+    public void clearAllTable() {
+        DatabaseHelper.getHelper().clearAllTable();
     }
 
 }

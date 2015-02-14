@@ -25,7 +25,7 @@ public class Match {
     private int scoreA;
 
     @DatabaseField()
-    private int scroeB;
+    private int scoreB;
 
     @DatabaseField()
     private int penaltyA;
@@ -80,12 +80,12 @@ public class Match {
         this.scoreA = scoreA;
     }
 
-    public int getScroeB() {
-        return scroeB;
+    public int getScoreB() {
+        return scoreB;
     }
 
-    public void setScroeB(int scroeB) {
-        this.scroeB = scroeB;
+    public void setScoreB(int scoreB) {
+        this.scoreB = scoreB;
     }
 
     public int getPenaltyA() {

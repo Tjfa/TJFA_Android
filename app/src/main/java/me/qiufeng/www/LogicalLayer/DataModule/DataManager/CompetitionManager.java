@@ -13,7 +13,6 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-import me.qiufeng.www.AppDelegate.AppDelegate;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
 
@@ -34,7 +33,7 @@ public class CompetitionManager {
     }
 
     private CompetitionManager() {
-        competitionDao = DatabaseHelper.getHelper(AppDelegate.getAppContext()).getCompetitionRuntimeDao();
+        competitionDao = DatabaseHelper.getHelper().getCompetitionRuntimeDao();
     }
 
     public void updateCompetitionWithAVCompetition(AVCompetition avCompetition) {
@@ -128,8 +127,4 @@ public class CompetitionManager {
         }
     }
 
-    public void deleteAll() {
-        List<Competition> list = competitionDao.queryForAll();
-        competitionDao.delete(list);
-    }
 }
