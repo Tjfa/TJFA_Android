@@ -1,12 +1,16 @@
 package me.qiufeng.www.LogicalLayer.DataModule.LocalModule;
 
 import com.j256.ormlite.field.DatabaseField;
+import com.j256.ormlite.table.DatabaseTable;
 
 import java.util.Date;
 
 /**
  * Created by QiuFeng on 2015/1/10.
  */
+
+
+@DatabaseTable(tableName = "Match")
 public class Match {
     @DatabaseField(id = true)
     private int matchId;

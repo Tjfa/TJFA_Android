@@ -6,7 +6,7 @@ package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 public class DatabaseManager {
     static DatabaseManager databaseManager  = null;
 
-    public DatabaseManager sharedDatabaseManager() {
+    static public DatabaseManager sharedDatabaseManager() {
         if (databaseManager == null) {
             databaseManager = new DatabaseManager();
         }
@@ -17,7 +17,7 @@ public class DatabaseManager {
 
     }
 
-    public void clearAllData() {
+    public void deleteAll() {
         MatchManager.sharedMatchManager().deleteAll();
         PlayerManager.sharedPlayerManager().deleteAll();
         TeamManager.sharedTeamManager().deleteAll();

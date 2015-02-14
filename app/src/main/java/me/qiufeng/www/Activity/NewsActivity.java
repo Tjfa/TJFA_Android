@@ -33,13 +33,14 @@ public class NewsActivity extends ActionBarActivity {
     private NewsCellAdapter adapter;
     ArrayList<News> data;
     ProgressHUD progressHUD;
+    boolean hasMore = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
-        data = NewsManager.sharedNewsManager.getAllNewsFromDatabase();
+        data = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
         if (data == null || data.isEmpty()) {
             loadLastestData(true);
         }
@@ -85,13 +86,32 @@ public class NewsActivity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    private void loadEarlierData() {
+        if (data.isEmpty()) {
+            return;
+        }
+        News lastNews = data.get(data.size()-1);
+        NewsManager.sharedNewsManager().getEarlierDataFromNetwork(AppConst.defalultLimit,lastNews.getNewsId(), new FinishCallBack<News>() {
+            @Override
+            public void done(ArrayList<News> list, Exception e) {
+                if (e == null) {
+                    if (list.isEmpty()) {
+                        hasMore = false;
+                    } else {
+                        data.addAll(list);
+                        adapter.notifyDataSetChanged();
+                    }
+                }
+            }
+        });
+    }
 
     private void loadLastestData(final boolean showProgressHUD) {
         if (showProgressHUD) {
             progressHUD = ProgressHUD.show(NewsActivity.this, "载入中", true, false, null);
         }
 
-        NewsManager.sharedNewsManager.getNewsesFromNetwork(AppConst.defalultLimit,new FinishCallBack<News>() {
+        NewsManager.sharedNewsManager.getLastestDataFromNetwork(AppConst.defalultLimit, new FinishCallBack<News>() {
             @Override
             public void done(ArrayList<News> list, Exception e) {
                 if (showProgressHUD) {
@@ -135,8 +155,6 @@ public class NewsActivity extends ActionBarActivity {
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
 
-            Log.v("MyListViewBase", "getView " + position + " " + convertView);
-
             if (convertView == null) {
                 convertView = inflater.inflate(R.layout.news_cell,null);
                 holder = new ViewHolder();
@@ -148,6 +166,11 @@ public class NewsActivity extends ActionBarActivity {
                 convertView.setTag(holder);//绑定ViewHolder对象
             } else {
                 holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
+            }
+
+            Log.w("",""+position);
+            if (position == data.size()-1 && hasMore) {
+                loadEarlierData();
             }
 
             News news = (News)getItem(position);

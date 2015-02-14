@@ -13,6 +13,7 @@ public class TJFAProgressHUD {
     static ProgressHUD errorProgress;
 
 
+
     public static void showErrorProgress(Context context, String message) {
         errorProgress = ProgressHUD.show(context, message, true, false, null);
 

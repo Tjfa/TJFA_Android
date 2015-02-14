@@ -137,10 +137,10 @@ public class DatabaseHelper extends OrmLiteSqliteOpenHelper {
     public void close() {
         super.close();
         competitionRuntimeDao = null;
-        newsDao = null;
-        matchDao = null;
-        teamDao = null;
-        playerDao = null;
+        newsRuntimeDao = null;
+        matchRuntimeDao = null;
+        teamRuntimeDao = null;
+        playerRuntimeDao = null;
     }
 
     @Override

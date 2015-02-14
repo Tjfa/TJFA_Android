@@ -14,6 +14,7 @@ import java.util.Comparator;
 import java.util.List;
 
 import me.qiufeng.www.AppDelegate.AppDelegate;
+import me.qiufeng.www.Const.AppConst;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVNews;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 
@@ -72,17 +73,32 @@ public class NewsManager {
 
     //end for debug
 
-    public void getNewsesFromNetwork(int limit, final FinishCallBack<News> callBack) {
+    public void getEarlierDataFromNetwork(int limit,int lessThan, final FinishCallBack<News> callBack) {
+        getNewsesFromNetwork(limit,lessThan,callBack);
+    }
+
+    public void getLastestDataFromNetwork(int limit, final FinishCallBack<News> callBack) {
+        getNewsesFromNetwork(limit, AppConst.maxInt, callBack);
+    }
+
+    private void getNewsesFromNetwork(int limit, int lessThan, final FinishCallBack<News> callBack) {
         AVQuery<AVNews> query = AVObject.getQuery(AVNews.class);
         query.limit(limit);
+        query.whereLessThan("newsId", lessThan);
+        query.orderByDescending("newsId");
+
         query.findInBackground(new FindCallback<AVNews>() {
             @Override
             public void done(List<AVNews> avNewses, AVException e) {
                 if (e != null) {
-                    callBack.done(null, e);
+                    if (callBack != null) {
+                        callBack.done(null, e);
+                    }
                 } else {
                     ArrayList<News> result = insertNewseWithAVNews(avNewses);
-                    callBack.done(result, null);
+                    if (callBack != null) {
+                        callBack.done(result, null);
+                    }
                 }
             }
         });

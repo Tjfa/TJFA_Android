@@ -12,6 +12,7 @@ import android.widget.Button;
 import java.util.ArrayList;
 import java.util.List;
 
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.DatabaseManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
@@ -24,6 +25,7 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        DatabaseManager.sharedDatabaseManager().deleteAll();
         setContentView(R.layout.activity_main);
 
         Button newsButton = (Button)findViewById(R.id.news_button);
