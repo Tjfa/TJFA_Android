@@ -1,8 +1,5 @@
 package me.qiufeng.www.LogicalLayer.DataModule.DataManager;
 
-import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
-import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
-
 /**
  * Created by QiuFeng on 2/13/15.
  */
