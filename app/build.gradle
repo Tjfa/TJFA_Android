@@ -34,5 +34,6 @@ dependencies {
     compile files('libs/ormlite-core-4.48.jar')
     compile files('libs/ormlite-jdbc-4.48.jar')
     compile project(':ProgressHUD')
+    compile project(':SlideMenu')
 }
 

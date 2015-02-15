@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/ProgressHUD/ProgressHUD.iml" filepath="$PROJECT_DIR$/ProgressHUD/ProgressHUD.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SlideMenu/SlideMenu.iml" filepath="$PROJECT_DIR$/SlideMenu/SlideMenu.iml" />
       <module fileurl="file://$PROJECT_DIR$/TJFA_Android.iml" filepath="$PROJECT_DIR$/TJFA_Android.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>

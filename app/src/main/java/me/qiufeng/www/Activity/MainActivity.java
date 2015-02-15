@@ -17,6 +17,7 @@ import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
+import me.tangke.slidemenu.SlideMenu;
 
 
 public class MainActivity extends ActionBarActivity {
