@@ -1,5 +1,6 @@
 package me.qiufeng.www.LogicalLayer.DataModule.LocalModule;
 
+import java.io.Serializable;
 import java.util.List;
 
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
@@ -12,7 +13,7 @@ import com.j256.ormlite.table.DatabaseTable;
  */
 
 @DatabaseTable(tableName = "Competition")
-public class Competition {
+public class Competition implements Serializable {
 
     @DatabaseField(id = true)
     private int competitionId;

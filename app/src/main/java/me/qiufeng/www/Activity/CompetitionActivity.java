@@ -1,6 +1,7 @@
 package me.qiufeng.www.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
@@ -9,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -21,7 +23,9 @@ import java.util.ArrayList;
 import me.qiufeng.www.Category.TJFAProgressHUD;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.CompetitionManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
 
 public class CompetitionActivity extends ActionBarActivity {
@@ -48,6 +52,18 @@ public class CompetitionActivity extends ActionBarActivity {
         adapter = new CompetitionCellAdapter(this);
         listView.setAdapter(adapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(CompetitionActivity.this, CompetitionDetailActivity.class);
+                Bundle bundle = new Bundle();
+                Competition competition = getCompetitionItem(position);
+                bundle.putSerializable("competition", competition);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        });
+
         CompetitionManager.sharedCompetitionManager().getLastestCompetitionsFromNetwork(type,10,new FinishCallBack<Competition>() {
             @Override
             public void done(ArrayList<Competition> list, Exception e) {
@@ -60,6 +76,19 @@ public class CompetitionActivity extends ActionBarActivity {
                 }
             }
         });
+    }
+
+    private Competition getCompetitionItem(int position) {
+        int section = 0;
+        while (position >= data.get(section).size() + 1 ) {  //+1 是header
+            position -= data.get(section++).size() + 1;
+        }
+
+        if (position == 0) {
+            return data.get(section).get(0);
+        } else {
+            return data.get(section).get(position - 1);
+        }
     }
 
     private ArrayList<ArrayList<Competition>> getDataListWithCompetitionList(ArrayList<Competition> list) {
@@ -124,16 +153,7 @@ public class CompetitionActivity extends ActionBarActivity {
 
         @Override
         public Object getItem(int position) {
-            int section = 0;
-            while (position >= data.get(section).size() + 1 ) {  //+1 是header
-                position -= data.get(section++).size() + 1;
-            }
-
-            if (position == 0) {
-                return data.get(section).get(0);
-            } else {
-                return data.get(section).get(position - 1);
-            }
+            return getCompetitionItem(position);
         }
 
         @Override

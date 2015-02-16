@@ -35,6 +35,10 @@
             android:name=".Activity.CompetitionActivity"
             android:label="@string/title_activity_competition" >
         </activity>
+        <activity
+            android:name=".Activity.CompetitionDetailActivity"
+            android:label="@string/title_activity_competition_detail" >
+        </activity>
     </application>
 
 </manifest>
