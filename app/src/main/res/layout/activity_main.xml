@@ -18,5 +18,10 @@
         android:layout_height="100dp"
         android:text="news"/>
 
+    <Button android:id="@+id/setting_button"
+        android:background="@color/black"
+        android:layout_width="100dp"
+        android:layout_height="100dp" />
+
 
 </LinearLayout>

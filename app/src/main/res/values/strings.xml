@@ -8,5 +8,6 @@
     <string name="title_activity_news_detail">NewsDetailActivity</string>
     <string name="title_activity_competition">CompetitionActivity</string>
     <string name="title_activity_competition_detail">CompetitionDetail</string>
+    <string name="title_activity_setting_acvitity">SettingAcvitity</string>
 
 </resources>
