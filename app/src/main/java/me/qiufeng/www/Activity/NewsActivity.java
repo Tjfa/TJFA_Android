@@ -2,7 +2,9 @@ package me.qiufeng.www.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -27,8 +29,9 @@ import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
 
-public class NewsActivity extends ActionBarActivity {
+public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayout.OnRefreshListener{
 
+    SwipeRefreshLayout swipeLayout;
     private ListView listView;
     private NewsCellAdapter adapter;
     ArrayList<News> data;
@@ -61,8 +64,15 @@ public class NewsActivity extends ActionBarActivity {
                 startActivity(intent);
             }
         });
+
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.news_swipe_container);
+        swipeLayout.setOnRefreshListener(this);
     }
 
+    @Override
+    public void onRefresh() {
+        loadLastestData(false);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -124,6 +134,8 @@ public class NewsActivity extends ActionBarActivity {
                 } else {
                     TJFAProgressHUD.showErrorProgress(NewsActivity.this);
                 }
+
+                swipeLayout.setRefreshing(false);
             }
         });
     }
