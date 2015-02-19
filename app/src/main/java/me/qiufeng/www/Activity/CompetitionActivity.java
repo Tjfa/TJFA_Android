@@ -3,6 +3,7 @@ package me.qiufeng.www.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import com.walnutlabs.android.ProgressHUD;
 import java.util.ArrayList;
 
 import me.qiufeng.www.Category.TJFAProgressHUD;
+import me.qiufeng.www.Const.AppConst;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.CompetitionManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.NewsManager;
@@ -34,7 +36,8 @@ public class CompetitionActivity extends ActionBarActivity {
     private int type;
     private ListView listView;
     private CompetitionCellAdapter adapter;
-
+    ProgressHUD loadingProgress;
+    private SwipeRefreshLayout swipeRefreshLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -46,6 +49,12 @@ public class CompetitionActivity extends ActionBarActivity {
             setTitle("本部");
         } else {
             setTitle("嘉定");
+        }
+
+        ArrayList<Competition> localData = CompetitionManager.sharedCompetitionManager().getCompetitionsFromDatabase(type);
+        data = getDataListWithCompetitionList(localData);
+        if (data ==  null || data.isEmpty()) {
+            getLasterCompetitions(true);
         }
 
         listView =(ListView) findViewById(R.id.competition_list_view);
@@ -64,15 +73,35 @@ public class CompetitionActivity extends ActionBarActivity {
             }
         });
 
-        CompetitionManager.sharedCompetitionManager().getLastestCompetitionsFromNetwork(type,10,new FinishCallBack<Competition>() {
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.competition_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getLasterCompetitions(false);
+            }
+        });
+    }
+
+    private void getLasterCompetitions(final boolean showProgress) {
+
+        if (showProgress) {
+            loadingProgress = TJFAProgressHUD.showLoadingProgress(this);
+        }
+
+        CompetitionManager.sharedCompetitionManager().getLastestCompetitionsFromNetwork(type, AppConst.defalultLimit,new FinishCallBack<Competition>() {
             @Override
             public void done(ArrayList<Competition> list, Exception e) {
+                if (showProgress) {
+                    loadingProgress.dismiss();
+                }
+                swipeRefreshLayout.setRefreshing(false);
+
                 if (e == null) {
                     CompetitionManager.sharedCompetitionManager().description(list);
                     data = getDataListWithCompetitionList(list);
                     adapter.notifyDataSetChanged();
                 } else {
-                    Log.e("",e.getMessage());
+                    TJFAProgressHUD.showErrorProgress(CompetitionActivity.this);
                 }
             }
         });

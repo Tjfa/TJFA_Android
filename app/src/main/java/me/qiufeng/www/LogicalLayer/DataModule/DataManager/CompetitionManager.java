@@ -60,6 +60,16 @@ public class CompetitionManager {
         });
     }
 
+    public ArrayList<Competition> getCompetitionsFromDatabase(int type) {
+        List<Competition> list = competitionDao.queryForEq("type",type);
+        ArrayList<Competition> result = new ArrayList<>();
+        for (Competition competition : list) {
+            result.add(competition);
+        }
+        return result;
+    }
+
+
     public void getLastestCompetitionsFromNetwork(int type, int limit, final FinishCallBack<Competition> callBack) {
         AVQuery<AVCompetition> query = AVObject.getQuery(AVCompetition.class);
         query.whereEqualTo("type",type);
