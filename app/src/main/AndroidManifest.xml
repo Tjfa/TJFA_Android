@@ -43,6 +43,10 @@
             android:name=".Activity.SettingAcvitity"
             android:label="@string/title_activity_setting_acvitity" >
         </activity>
+        <activity
+            android:name=".Activity.RedCardActivity"
+            android:label="@string/title_activity_red_card" >
+        </activity>
     </application>
 
 </manifest>

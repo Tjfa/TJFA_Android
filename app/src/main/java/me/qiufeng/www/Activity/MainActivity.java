@@ -18,7 +18,6 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        DatabaseManager.sharedDatabaseManager().clearAllTable();
         setContentView(R.layout.activity_main);
 
         Button newsButton = (Button)findViewById(R.id.news_button);

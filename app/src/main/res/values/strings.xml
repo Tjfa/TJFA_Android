@@ -9,5 +9,6 @@
     <string name="title_activity_competition">CompetitionActivity</string>
     <string name="title_activity_competition_detail">CompetitionDetail</string>
     <string name="title_activity_setting_acvitity">SettingAcvitity</string>
+    <string name="title_activity_red_card">RedCardActivity</string>
 
 </resources>
