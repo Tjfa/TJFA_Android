@@ -4,15 +4,36 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 
 import me.qiufeng.www.R;
+import me.qiufeng.www.ResideMenu.ResideMenu;
+import me.qiufeng.www.ResideMenu.ResideMenuItem;
 
 public class CompetitionDetailActivity extends ActionBarActivity {
+
+    private ResideMenu resideMenu;
+    private ResideMenuItem redCardItem;
+    private ResideMenuItem yellowCardItem;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition_detail);
+
+        setupMenu();
+    }
+
+    private void setupMenu() {
+        resideMenu = new ResideMenu(this);
+        resideMenu.attachToActivity(this);
+        resideMenu.setScaleValue(0.6f);
+
+        redCardItem = new ResideMenuItem(this, R.drawable.abc_btn_radio_material, "红牌");
+        yellowCardItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "黄牌");
+
+        resideMenu.addMenuItem(redCardItem, ResideMenu.DIRECTION_RIGHT);
+        resideMenu.addMenuItem(yellowCardItem, ResideMenu.DIRECTION_RIGHT);
     }
 
 
@@ -36,5 +57,10 @@ public class CompetitionDetailActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        return resideMenu.dispatchTouchEvent(ev);
     }
 }

@@ -1,4 +1,4 @@
-package com.special.ResideMenu;
+package me.qiufeng.www.ResideMenu;
 
 import android.app.Activity;
 import android.content.Context;
@@ -18,6 +18,8 @@ import com.nineoldandroids.view.ViewHelper;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import me.qiufeng.www.R;
 
 /**
  * User: special

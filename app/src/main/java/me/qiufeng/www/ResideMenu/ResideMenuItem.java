@@ -1,11 +1,12 @@
-package com.special.ResideMenu;
+package me.qiufeng.www.ResideMenu;
 
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import com.special.ResideMenu.R;
+
+import me.qiufeng.www.R;
 
 /**
  * User: special
