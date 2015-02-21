@@ -8,7 +8,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-import me.qiufeng.www.LogicalLayer.DataModule.DataManager.DatabaseManager;
 import me.qiufeng.www.R;
 
 
@@ -17,7 +16,6 @@ public class MainActivity extends ActionBarActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
 
         Button newsButton = (Button)findViewById(R.id.news_button);
