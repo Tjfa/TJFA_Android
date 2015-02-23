@@ -3,11 +3,19 @@ package me.qiufeng.www.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
+import java.util.ArrayList;
+
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.MatchManager;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.PlayerManager;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
 import me.qiufeng.www.R;
 
 
@@ -17,6 +25,25 @@ public class MainActivity extends ActionBarActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        for (int i = 1; i <= 6; i++ ) {
+        MatchManager.sharedMatchManager().getMatchesFromNetwork(i, new FinishCallBack<Match>() {
+            @Override
+            public void done(ArrayList<Match> list, Exception e) {
+                for (Match match : list) {
+                    Log.i("",""+match.getMatchId());
+                }
+            }
+        });
+
+        PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(i,new FinishCallBack<Player>() {
+            @Override
+            public void done(ArrayList<Player> list, Exception e) {
+                for (Player player : list) {
+                    Log.i("",""+player.getName());
+                }
+            }
+        });}
 
         Button newsButton = (Button)findViewById(R.id.news_button);
         newsButton.setOnClickListener(new View.OnClickListener() {

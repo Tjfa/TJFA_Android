@@ -23,7 +23,7 @@ public class PlayerManager {
     static PlayerManager playerManager = null;
     private RuntimeExceptionDao<Player, Integer> playerDao;
 
-    static PlayerManager sharedPlayerManager() {
+    public static PlayerManager sharedPlayerManager() {
         if (playerManager == null) {
             playerManager = new PlayerManager();
         }
@@ -46,9 +46,15 @@ public class PlayerManager {
                     query.findInBackground(new FindCallback<AVPlayer>() {
                         @Override
                         public void done(List<AVPlayer> avPlayers, AVException e) {
-                            ArrayList<Player> result = updatePlayers(avPlayers);
-                            if (callback != null) {
-                                callback.done(result, e);
+                            if (e == null) {
+                                ArrayList<Player> result = updatePlayers(avPlayers);
+                                if (callback != null) {
+                                    callback.done(result, e);
+                                }
+                            } else {
+                                if (callback != null) {
+                                    callback.done(null, e);
+                                }
                             }
                         }
                     });

@@ -42,14 +42,22 @@ public class MatchManager {
                     query.findInBackground(new FindCallback<AVMatch>() {
                         @Override
                         public void done(List<AVMatch> avMatches, AVException e) {
-                            ArrayList<Match> matches = updateMatches(avMatches);
-                            if (callBack != null) {
-                                callBack.done(matches,null);
+                            if (e == null) {
+                                ArrayList<Match> matches = updateMatches(avMatches);
+                                if (callBack != null) {
+                                    callBack.done(matches,null);
+                                }
+                            } else {
+                                if (callBack != null) {
+                                    callBack.done(null, e);
+                                }
                             }
                         }
                     });
                 } else {
-                    callBack.done(null, e);
+                    if (callBack != null) {
+                        callBack.done(null, e);
+                    }
                 }
             }
         });
