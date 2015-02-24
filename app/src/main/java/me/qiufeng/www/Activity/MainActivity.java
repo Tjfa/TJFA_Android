@@ -26,24 +26,24 @@ public class MainActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        for (int i = 1; i <= 6; i++ ) {
-        MatchManager.sharedMatchManager().getMatchesFromNetwork(i, new FinishCallBack<Match>() {
-            @Override
-            public void done(ArrayList<Match> list, Exception e) {
-                for (Match match : list) {
-                    Log.i("",""+match.getMatchId());
-                }
-            }
-        });
-
-        PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(i,new FinishCallBack<Player>() {
-            @Override
-            public void done(ArrayList<Player> list, Exception e) {
-                for (Player player : list) {
-                    Log.i("",""+player.getName());
-                }
-            }
-        });}
+//        for (int i = 1; i <= 6; i++ ) {
+//        MatchManager.sharedMatchManager().getMatchesFromNetwork(i, new FinishCallBack<Match>() {
+//            @Override
+//            public void done(ArrayList<Match> list, Exception e) {
+//                for (Match match : list) {
+//                    Log.i("",""+match.getMatchId());
+//                }
+//            }
+//        });
+//
+//        PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(i,new FinishCallBack<Player>() {
+//            @Override
+//            public void done(ArrayList<Player> list, Exception e) {
+//                for (Player player : list) {
+//                    Log.i("",""+player.getName());
+//                }
+//            }
+//        });}
 
         Button newsButton = (Button)findViewById(R.id.news_button);
         newsButton.setOnClickListener(new View.OnClickListener() {
