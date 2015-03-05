@@ -10,7 +10,7 @@
         tools:context="me.qiufeng.www.Fragment.RedCardFragment">
 
         <ListView
-            android:id="@+id/news_list_view"
+            android:id="@+id/list_view"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"

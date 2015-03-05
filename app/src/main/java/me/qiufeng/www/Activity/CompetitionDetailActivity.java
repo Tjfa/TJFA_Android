@@ -93,8 +93,10 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
     @Override
     public void onClick(View view) {
         if (view == redCardItem) {
+            setTitle("红牌");
             changeFragment(new RedCardFragment());
         } else if (view == yellowCardItem) {
+            setTitle("黄牌");
             changeFragment(new YellowCardFragment());
         }
         resideMenu.closeMenu();

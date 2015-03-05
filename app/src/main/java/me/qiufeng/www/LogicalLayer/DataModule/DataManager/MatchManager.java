@@ -31,6 +31,10 @@ public class MatchManager {
         matchDao = DatabaseHelper.getHelper().getMatchRuntimeDao();
     }
 
+    public List<Match> getAllMatchesFromDatabase(int compeititonId) {
+        return matchDao.queryForEq("competitionId", compeititonId);
+    }
+
     public void getMatchesFromNetwork(final int competitionId, final FinishCallBack<Match> callBack) {
         TeamManager.sharedTeamManager().getTeamFromNetwork(competitionId, new FinishCallBack<Team>() {
             @Override

@@ -34,6 +34,9 @@ public class PlayerManager {
         playerDao = DatabaseHelper.getHelper().getPlayerRuntimeDao();
     }
 
+    public List<Player> getAllPlayersFromeDatabase(final int competitionId) {
+        return playerDao.queryForEq("competitionId",competitionId);
+    }
 
     public void getAllPlayersFromNetwork(final int competitionId, final FinishCallBack<Player> callback) {
         TeamManager.sharedTeamManager().getTeamFromNetwork(competitionId, new FinishCallBack<Team>() {
