@@ -31,6 +31,10 @@ public class TeamManager {
         teamDao = DatabaseHelper.getHelper().getTeamRuntimeDao();
     }
 
+    public Team getTeamByTeamId(int teamId) {
+        return teamDao.queryForId(teamId);
+    }
+
     public void getTeamFromNetwork(int competitionId, final FinishCallBack<Team> callBack) {
         AVQuery<AVTeam> teamQuery = AVQuery.getQuery(AVTeam.class);
         teamQuery.limit(1000);

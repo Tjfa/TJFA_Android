@@ -1,6 +1,7 @@
 package me.qiufeng.www.Fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.app.Fragment;
 import android.view.LayoutInflater;
@@ -25,16 +26,18 @@ import me.qiufeng.www.R;
 public class RedCardFragment extends DetailFragment {
 
 
-    public RedCardFragment() {
+    public RedCardFragment(Activity activity) {
         // Required empty public constructor
+        super(activity);
     }
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_red_card_fragment, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_red_card_fragment, container, false);
+        setupView(parentView);
+        return parentView;
     }
 
     private ArrayList<Player> converListToArrayList(List<Player> list) {
@@ -42,13 +45,6 @@ public class RedCardFragment extends DetailFragment {
         for (Player player : list) {
             players.add(player);
         }
-
-        Collections.sort(players, new Comparator<Player>() {
-            @Override
-            public int compare(Player lhs, Player rhs) {
-                return rhs.getRedCard() - lhs.getYellowCard();
-            }
-        });
         return players;
     }
 
@@ -63,7 +59,17 @@ public class RedCardFragment extends DetailFragment {
         PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(competitionId, new FinishCallBack<Player>() {
             @Override
             public void done(ArrayList<Player> list, Exception e) {
-                callbackDoneFinish();
+                    callbackDoneFinish(list, e);
+            }
+        });
+    }
+
+    @Override
+    protected void sort(ArrayList list) {
+        Collections.sort(list, new Comparator<Player>() {
+            @Override
+            public int compare(Player lhs, Player rhs) {
+                return rhs.getRedCard() - lhs.getRedCard();
             }
         });
     }

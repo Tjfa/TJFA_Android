@@ -86,4 +86,5 @@ public class Player {
     public void setCompetitionId(int competitionId) {
         this.competitionId = competitionId;
     }
+
 }

@@ -33,6 +33,10 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         setContentView(R.layout.activity_competition_detail);
 
         setupMenu();
+
+        if (savedInstanceState == null) {
+            changeFragment(new RedCardFragment(this));
+        }
     }
 
     private void setupMenu() {
@@ -40,9 +44,10 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         resideMenu.attachToActivity(this);
         resideMenu.setScaleValue(0.6f);
 
+
         matchItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "比 赛");
         topGoalItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "射手榜");
-        redCardItem = new ResideMenuItem(this, R.drawable.abc_btn_radio_material, "红 牌");
+        redCardItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "红 牌");
         yellowCardItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "黄 牌");
         scoreItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "积 分");
         teamItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "球 队");
@@ -60,6 +65,9 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         resideMenu.addMenuItem(yellowCardItem, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(scoreItem, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(teamItem, ResideMenu.DIRECTION_RIGHT);
+
+        resideMenu.setBackground(R.drawable.ic_launcher);
+        resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
     }
 
 
@@ -94,10 +102,10 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
     public void onClick(View view) {
         if (view == redCardItem) {
             setTitle("红牌");
-            changeFragment(new RedCardFragment());
+            changeFragment(new RedCardFragment(this));
         } else if (view == yellowCardItem) {
             setTitle("黄牌");
-            changeFragment(new YellowCardFragment());
+            changeFragment(new YellowCardFragment(this));
         }
         resideMenu.closeMenu();
     }
@@ -107,7 +115,6 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.main_fragment, targetFragment, "fragment")
-                .setTransitionStyle(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
                 .commit();
     }
 

@@ -1,6 +1,7 @@
 package me.qiufeng.www.Fragment;
 
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -23,8 +24,9 @@ import me.qiufeng.www.R;
 public class YellowCardFragment extends DetailFragment {
 
 
-    public YellowCardFragment() {
+    public YellowCardFragment(Activity activity) {
         // Required empty public constructor
+        super(activity);
     }
 
 
@@ -42,13 +44,6 @@ public class YellowCardFragment extends DetailFragment {
         for (Player player : list) {
             players.add(player);
         }
-
-        Collections.sort(players, new Comparator<Player>() {
-            @Override
-            public int compare(Player lhs, Player rhs) {
-                return rhs.getYellowCard() - lhs.getYellowCard();
-            }
-        });
         return players;
     }
 
@@ -63,9 +58,19 @@ public class YellowCardFragment extends DetailFragment {
         PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(competitionId, new FinishCallBack<Player>() {
             @Override
             public void done(ArrayList<Player> list, Exception e) {
-                callbackDoneFinish();
+                callbackDoneFinish(list, e);
             }
         });
     }
 
+
+    @Override
+    protected void sort(ArrayList list) {
+        Collections.sort(list, new Comparator<Player>() {
+            @Override
+            public int compare(Player lhs, Player rhs) {
+                return rhs.getYellowCard() - lhs.getYellowCard();
+            }
+        });
+    }
 }

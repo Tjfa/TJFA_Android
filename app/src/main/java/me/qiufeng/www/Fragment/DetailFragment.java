@@ -1,6 +1,7 @@
 package me.qiufeng.www.Fragment;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -17,47 +18,129 @@ import com.walnutlabs.android.ProgressHUD;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.zip.Inflater;
 
+import me.qiufeng.www.Category.TJFAProgressHUD;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.DatabaseManager;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.TeamManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 import me.qiufeng.www.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-abstract public class DetailFragment extends Fragment {
+abstract public class DetailFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
 
     abstract protected ArrayList getAllDataFromDatabase();
     abstract protected void getAllDataFromNetwork();
+    abstract protected void sort(ArrayList data);
 
     SwipeRefreshLayout swipeLayout;
     protected ListView listView;
-    protected DetailAdapter adapter;
+    protected DetailAdapter detailAdapter;
     protected ArrayList data;
     protected int competitionId;
-
+    Activity activity;
     ProgressHUD progressHUD;
 
-    public DetailFragment() {
+    public DetailFragment(Activity activity) {
         // Required empty public constructor
+        this.activity = activity;
+    }
+
+    protected void setupView(View parentView) {
+        competitionId = 2;
+        listView =(ListView) parentView.findViewById(R.id.list_view);
+
+        data = getAllDataFromDatabase();
+        sort(data);
+        if (data == null || data.isEmpty()) {
+            getAllDataFromNetwork();
+        }
+
+        detailAdapter = new DetailAdapter(activity);
+        listView.setAdapter(detailAdapter);
+
+        swipeLayout =(SwipeRefreshLayout) parentView.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+    }
+
+    @Override
+    public void onRefresh() {
+        getAllDataFromNetwork();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        listView =(ListView) getView().findViewById(R.id.list_view);
-
-        data = getAllDataFromDatabase();
-
-        DetailAdapter detailAdapter = new DetailAdapter(this.getActivity());
-        listView.setAdapter(detailAdapter);
-
         return inflater.inflate(R.layout.fragment_red_card_fragment, container, false);
     }
 
-    public void callbackDoneFinish() {
-        adapter.notifyDataSetChanged();
+    public void callbackDoneFinish(ArrayList result, Exception e) {
+        if (progressHUD  != null) {
+            progressHUD.dismiss();
+        }
+        swipeLayout.setRefreshing(false);
+
+        if (e == null) {
+            data = result;
+            sort(data);
+            detailAdapter.notifyDataSetChanged();
+        } else {
+            TJFAProgressHUD.showErrorProgress(this.getActivity());
+        }
+    }
+
+    public final class ViewHolder {
+        public TextView playerName;
+        public TextView teamName;
+        public TextView dataCount;
+    }
+
+    protected void setBaseCellDataCount(ViewHolder holder, int position) {
+        Player player = (Player)data.get(position);
+        holder.dataCount.setText("" + player.getGoalCount());
+    }
+
+    protected void setBaseCellName(ViewHolder holder, int position) {
+        Player player = (Player)data.get(position);
+        holder.playerName.setText(player.getName());
+    }
+
+    protected void setBaseCellTeamName(ViewHolder holder, int position) {
+        Player player = (Player)data.get(position);
+        int teamId = player.getTeamId();
+        Team team =  TeamManager.sharedTeamManager().getTeamByTeamId(teamId);
+        holder.teamName.setText(team.getName());
+    }
+
+    protected View getLayoutInflater(LayoutInflater inflater) {
+        return inflater.inflate(R.layout.detail_base_cell,null);
+    }
+
+    protected View getCell(LayoutInflater inflater, final int position, View convertView, ViewGroup parent) {
+        ViewHolder holder;
+
+        if (convertView == null) {
+            convertView = getLayoutInflater(inflater);
+            holder = new ViewHolder();
+
+                /*得到各个控件的对象*/
+            holder.playerName = (TextView) convertView.findViewById(R.id.player_name);
+            holder.teamName = (TextView) convertView.findViewById(R.id.team_name);
+            holder.dataCount = (TextView) convertView.findViewById(R.id.data_count);
+            convertView.setTag(holder);//绑定ViewHolder对象
+        } else {
+            holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
+        }
+
+        setBaseCellDataCount(holder, position);
+        setBaseCellName(holder, position);
+        setBaseCellTeamName(holder, position);
+
+        return convertView;
     }
 
     class DetailAdapter extends BaseAdapter {
@@ -85,40 +168,9 @@ abstract public class DetailFragment extends Fragment {
 
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
-            ViewHolder holder;
 
-            if (convertView == null) {
-                convertView = inflater.inflate(R.layout.detail_base_cell,null);
-                holder = new ViewHolder();
+            return getCell(inflater,position, convertView, parent);
 
-                /*得到各个控件的对象*/
-                holder.playerName = (TextView) convertView.findViewById(R.id.player_name);
-                holder.teamName = (TextView) convertView.findViewById(R.id.team_name);
-                holder.dataCount = (TextView) convertView.findViewById(R.id.data_count);
-                convertView.setTag(holder);//绑定ViewHolder对象
-            } else {
-                holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
-            }
-
-            if (position == data.size()-1) {
-                //loadEarlierData();
-            }
-
-            News news = (News)getItem(position);
-            /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
-            //holder.title.setText(news.getTitle());
-            //holder.preContent.setText(news.getPrecontent());
-
-            SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
-            //holder.time.setText(format.format(news.getDate()));
-            return convertView;
-        }
-
-
-        public final class ViewHolder {
-            public TextView playerName;
-            public TextView teamName;
-            public TextView dataCount;
         }
     }
 
