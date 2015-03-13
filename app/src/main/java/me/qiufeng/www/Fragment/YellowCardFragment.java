@@ -33,8 +33,9 @@ public class YellowCardFragment extends DetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_yellow_card, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_yellow_card, container, false);
+        setupView(parentView);
+        return parentView;
     }
 
 
@@ -63,6 +64,12 @@ public class YellowCardFragment extends DetailFragment {
         });
     }
 
+
+    @Override
+    protected void setBaseCellDataCount(ViewHolder holder, int position) {
+        Player player = (Player)data.get(position);
+        holder.dataCount.setText("" + player.getYellowCard());
+    }
 
     @Override
     protected void sort(ArrayList list) {

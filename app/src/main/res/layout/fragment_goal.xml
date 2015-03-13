@@ -56,7 +56,7 @@
             android:singleLine="true"
             android:textColor="@color/red"
             android:textSize="17dp"
-            android:text="黄牌"/>
+            android:text="进球"/>
     </RelativeLayout>
 
 
@@ -64,7 +64,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="me.qiufeng.www.Fragment.YellowCardFragment">
+        tools:context="me.qiufeng.www.Fragment.GoalFragment">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_container"

@@ -21,10 +21,10 @@ import me.qiufeng.www.R;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class RedCardFragment extends DetailFragment {
+public class GoalFragment extends DetailFragment {
 
 
-    public RedCardFragment(Activity activity) {
+    public GoalFragment(Activity activity) {
         // Required empty public constructor
         super(activity);
     }
@@ -33,7 +33,7 @@ public class RedCardFragment extends DetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View parentView = inflater.inflate(R.layout.fragment_red_card, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_goal, container, false);
         setupView(parentView);
         return parentView;
     }
@@ -57,15 +57,16 @@ public class RedCardFragment extends DetailFragment {
         PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(competitionId, new FinishCallBack<Player>() {
             @Override
             public void done(ArrayList<Player> list, Exception e) {
-                    callbackDoneFinish(list, e);
+                callbackDoneFinish(list, e);
             }
         });
     }
 
+
     @Override
     protected void setBaseCellDataCount(ViewHolder holder, int position) {
         Player player = (Player)data.get(position);
-        holder.dataCount.setText("" + player.getRedCard());
+        holder.dataCount.setText("" + player.getGoalCount());
     }
 
     @Override
@@ -73,7 +74,7 @@ public class RedCardFragment extends DetailFragment {
         Collections.sort(list, new Comparator<Player>() {
             @Override
             public int compare(Player lhs, Player rhs) {
-                return rhs.getRedCard() - lhs.getRedCard();
+                return rhs.getGoalCount() - lhs.getGoalCount();
             }
         });
     }

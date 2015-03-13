@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import me.qiufeng.www.Fragment.GoalFragment;
 import me.qiufeng.www.Fragment.RedCardFragment;
 import me.qiufeng.www.Fragment.YellowCardFragment;
 import me.qiufeng.www.R;
@@ -106,6 +107,9 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         } else if (view == yellowCardItem) {
             setTitle("黄牌");
             changeFragment(new YellowCardFragment(this));
+        } else if (view == topGoalItem) {
+            setTitle("射手榜");
+            changeFragment(new GoalFragment(this));
         }
         resideMenu.closeMenu();
     }

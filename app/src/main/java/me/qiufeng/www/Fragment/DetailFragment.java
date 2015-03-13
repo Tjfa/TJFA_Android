@@ -6,7 +6,6 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,14 +15,12 @@ import android.widget.TextView;
 
 import com.walnutlabs.android.ProgressHUD;
 
-import java.text.SimpleDateFormat;
+import org.w3c.dom.Text;
+
 import java.util.ArrayList;
-import java.util.zip.Inflater;
 
 import me.qiufeng.www.Category.TJFAProgressHUD;
-import me.qiufeng.www.LogicalLayer.DataModule.DataManager.DatabaseManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.TeamManager;
-import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 import me.qiufeng.www.R;
@@ -36,7 +33,6 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     abstract protected ArrayList getAllDataFromDatabase();
     abstract protected void getAllDataFromNetwork();
     abstract protected void sort(ArrayList data);
-
     SwipeRefreshLayout swipeLayout;
     protected ListView listView;
     protected DetailAdapter detailAdapter;
@@ -51,7 +47,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     }
 
     protected void setupView(View parentView) {
-        competitionId = 2;
+        competitionId = 6;
         listView =(ListView) parentView.findViewById(R.id.list_view);
 
         data = getAllDataFromDatabase();
@@ -75,7 +71,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_red_card_fragment, container, false);
+        return inflater.inflate(R.layout.fragment_red_card, container, false);
     }
 
     public void callbackDoneFinish(ArrayList result, Exception e) {
@@ -97,6 +93,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
         public TextView playerName;
         public TextView teamName;
         public TextView dataCount;
+        public TextView rank;
     }
 
     protected void setBaseCellDataCount(ViewHolder holder, int position) {
@@ -131,6 +128,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
             holder.playerName = (TextView) convertView.findViewById(R.id.player_name);
             holder.teamName = (TextView) convertView.findViewById(R.id.team_name);
             holder.dataCount = (TextView) convertView.findViewById(R.id.data_count);
+            holder.rank  = (TextView) convertView.findViewById(R.id.player_rank);
             convertView.setTag(holder);//绑定ViewHolder对象
         } else {
             holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
@@ -139,6 +137,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
         setBaseCellDataCount(holder, position);
         setBaseCellName(holder, position);
         setBaseCellTeamName(holder, position);
+        holder.rank.setText("" + (position + 1) );
 
         return convertView;
     }
