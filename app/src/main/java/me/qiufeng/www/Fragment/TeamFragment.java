@@ -3,15 +3,16 @@ package me.qiufeng.www.Fragment;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.media.Image;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.nostra13.universalimageloader.core.ImageLoader;
-import com.nostra13.universalimageloader.core.listener.SimpleImageLoadingListener;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -120,9 +121,12 @@ public class TeamFragment extends DetailFragment {
         }
 
         Team team = (Team)data.get(position);
-//        if (team.getBadgeImage() != null && team.getBadgeImage().equals("")) {
-//            ImageLoader.getInstance().displayImage(team.getBadgeImage(), holder.image);
-//        }
+        if (team.getBadgeImage() != null && !team.getBadgeImage().isEmpty()) {
+            Picasso.with(activity).load(team.getBadgeImage())
+                    .placeholder(R.drawable.team_placeholder1)
+                    .error(R.drawable.team_placeholder1)
+                    .into(holder.image);
+        }
         holder.teamName.setText(team.getName());
         holder.goalCount.setText("进 " + team.getGoalCount());
         holder.missCount.setText("失 " + team.getMissCount());

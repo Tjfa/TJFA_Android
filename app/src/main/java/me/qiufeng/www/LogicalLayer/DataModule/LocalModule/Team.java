@@ -1,5 +1,7 @@
 package me.qiufeng.www.LogicalLayer.DataModule.LocalModule;
 
+import android.util.Log;
+
 import com.j256.ormlite.field.DatabaseField;
 import com.j256.ormlite.table.DatabaseTable;
 
@@ -12,7 +14,7 @@ public class Team {
     @DatabaseField(id = true)
     int teamId;
 
-    @DatabaseField()
+    @DatabaseField(defaultValue = "")
     String badgeImage;
 
     @DatabaseField()
@@ -70,6 +72,10 @@ public class Team {
     }
 
     public void setBadgeImage(String badgeImage) {
+        Log.i("","badge ++++++++ :" + badgeImage.toString());
+        if (badgeImage == null) {
+            Log.i("","=====================null");
+        }
         this.badgeImage = badgeImage;
     }
 
