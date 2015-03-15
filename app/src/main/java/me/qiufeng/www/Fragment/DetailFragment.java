@@ -6,6 +6,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -142,7 +143,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
         return convertView;
     }
 
-    class DetailAdapter extends BaseAdapter {
+    protected class DetailAdapter extends BaseAdapter {
 
         private LayoutInflater inflater;
 

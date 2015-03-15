@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:src="@drawable/team_placeholder1"
+        android:id="@+id/team_badge"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="20dp"
+        android:layout_marginLeft="@dimen/cell_left_margin"
+        android:layout_marginTop="20dp" />
+
+    <LinearLayout
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        android:orientation="vertical">
+
+
+        <TextView
+            android:id="@+id/team_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="19dp"
+            android:textStyle="bold" />
+
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_centerInParent="true"
+                android:orientation="horizontal"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:id="@+id/team_goalCount"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textSize="17dp" />
+
+                <TextView
+                    android:id="@+id/team_missCount"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:textSize="17dp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="100dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="@dimen/cell_right_margin"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/team_rank"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:textColor="@color/red"
+            android:textSize="19dp"
+            android:gravity="center"
+            android:textStyle="bold"
+            android:layout_marginTop="10dp"/>
+
+        <TextView
+            android:id="@+id/team_group"
+            android:layout_width="100dp"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:textSize="17dp" />
+    </LinearLayout>
+
+</RelativeLayout>

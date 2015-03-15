@@ -36,7 +36,7 @@ public class MatchManager {
     }
 
     public void getMatchesFromNetwork(final int competitionId, final FinishCallBack<Match> callBack) {
-        TeamManager.sharedTeamManager().getTeamFromNetwork(competitionId, new FinishCallBack<Team>() {
+        TeamManager.sharedTeamManager().getTeamsFromNetwork(competitionId, new FinishCallBack<Team>() {
             @Override
             public void done(ArrayList<Team> list, Exception e) {
                 if (e == null) {

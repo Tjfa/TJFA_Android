@@ -39,7 +39,7 @@ public class PlayerManager {
     }
 
     public void getAllPlayersFromNetwork(final int competitionId, final FinishCallBack<Player> callback) {
-        TeamManager.sharedTeamManager().getTeamFromNetwork(competitionId, new FinishCallBack<Team>() {
+        TeamManager.sharedTeamManager().getTeamsFromNetwork(competitionId, new FinishCallBack<Team>() {
             @Override
             public void done(ArrayList<Team> list, Exception e) {
                 if (e == null) {

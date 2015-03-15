@@ -3,7 +3,6 @@ package me.qiufeng.www.Activity;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBarActivity;
-import android.support.v4.app.FragmentTransaction;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,6 +11,7 @@ import android.view.View;
 
 import me.qiufeng.www.Fragment.GoalFragment;
 import me.qiufeng.www.Fragment.RedCardFragment;
+import me.qiufeng.www.Fragment.TeamFragment;
 import me.qiufeng.www.Fragment.YellowCardFragment;
 import me.qiufeng.www.R;
 import me.qiufeng.www.ResideMenu.ResideMenu;
@@ -110,6 +110,12 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         } else if (view == topGoalItem) {
             setTitle("射手榜");
             changeFragment(new GoalFragment(this));
+        } else if (view == scoreItem) {
+            setTitle("积分");
+            //changeFragment(new TeamFragment(this));
+        } else if (view == teamItem) {
+            setTitle("球队");
+            changeFragment(new TeamFragment(this));
         }
         resideMenu.closeMenu();
     }

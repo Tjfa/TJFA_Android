@@ -54,6 +54,9 @@ public class Team {
     @DatabaseField()
     int rank;
 
+    @DatabaseField()
+    int competitionId;
+
     public int getTeamId() {
         return teamId;
     }
@@ -172,5 +175,13 @@ public class Team {
 
     public void setRank(int rank) {
         this.rank = rank;
+    }
+
+    public int getComeptitionId() {
+        return competitionId;
+    }
+
+    public void setComeptitionId(int competitionId) {
+        this.competitionId = competitionId;
     }
 }

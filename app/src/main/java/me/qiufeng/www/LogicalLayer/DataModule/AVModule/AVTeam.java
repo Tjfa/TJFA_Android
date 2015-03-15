@@ -1,5 +1,7 @@
 package me.qiufeng.www.LogicalLayer.DataModule.AVModule;
 
+import android.util.Log;
+
 import com.avos.avoscloud.AVClassName;
 import com.avos.avoscloud.AVObject;
 
@@ -127,5 +129,13 @@ public class AVTeam extends AVObject {
 
     public void setRank(int rank) {
         put("rank",rank);
+    }
+
+    public void setCompetitionId(int competitionId) {
+        put("competitionId", competitionId);
+    }
+
+    public int getCompetitionId() {
+        return getInt("competitionId");
     }
 }
