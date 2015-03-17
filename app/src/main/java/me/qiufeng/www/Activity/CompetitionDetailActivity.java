@@ -10,6 +10,7 @@ import android.view.MotionEvent;
 import android.view.View;
 
 import me.qiufeng.www.Fragment.GoalFragment;
+import me.qiufeng.www.Fragment.MatchFragment;
 import me.qiufeng.www.Fragment.RedCardFragment;
 import me.qiufeng.www.Fragment.TeamFragment;
 import me.qiufeng.www.Fragment.YellowCardFragment;
@@ -36,7 +37,7 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         setupMenu();
 
         if (savedInstanceState == null) {
-            changeFragment(new RedCardFragment(this));
+            changeFragment(new MatchFragment(this));
         }
     }
 
@@ -116,6 +117,9 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         } else if (view == teamItem) {
             setTitle("球队");
             changeFragment(new TeamFragment(this));
+        } else if (view == matchItem) {
+            setTitle("比赛");
+            changeFragment(new MatchFragment(this));
         }
         resideMenu.closeMenu();
     }

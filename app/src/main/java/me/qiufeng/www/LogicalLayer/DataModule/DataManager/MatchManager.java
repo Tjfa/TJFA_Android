@@ -35,7 +35,7 @@ public class MatchManager {
         return matchDao.queryForEq("competitionId", compeititonId);
     }
 
-    public void getMatchesFromNetwork(final int competitionId, final FinishCallBack<Match> callBack) {
+    public void getAllMatchesFromNetwork(final int competitionId, final FinishCallBack<Match> callBack) {
         TeamManager.sharedTeamManager().getTeamsFromNetwork(competitionId, new FinishCallBack<Team>() {
             @Override
             public void done(ArrayList<Team> list, Exception e) {

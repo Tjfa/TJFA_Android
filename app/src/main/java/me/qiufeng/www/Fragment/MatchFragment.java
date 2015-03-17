@@ -2,8 +2,8 @@ package me.qiufeng.www.Fragment;
 
 
 import android.app.Activity;
-import android.app.Fragment;
 import android.os.Bundle;
+import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,17 +18,19 @@ import java.util.Comparator;
 import java.util.List;
 
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.MatchManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.TeamManager;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 import me.qiufeng.www.R;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class TeamFragment extends DetailFragment {
+public class MatchFragment extends DetailFragment {
 
 
-    public TeamFragment(Activity activity) {
+    public MatchFragment(Activity activity) {
         super(activity);
         // Required empty public constructor
     }
@@ -38,63 +40,47 @@ public class TeamFragment extends DetailFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View parentView = inflater.inflate(R.layout.fragment_team, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_match, container, false);
         setupView(parentView);
         return parentView;
     }
 
-    private ArrayList<Team> converListToArrayList(List<Team> list) {
-        ArrayList<Team> teams = new ArrayList<>();
-        for (Team team : list) {
-            teams.add(team);
+    private ArrayList<Match> converListToArrayList(List<Match> list) {
+        ArrayList<Match> matches = new ArrayList<>();
+        for (Match match : list) {
+            matches.add(match);
         }
-        return teams;
+        return matches;
     }
 
     @Override
     protected ArrayList getAllDataFromDatabase() {
-        List<Team> list =  TeamManager.sharedTeamManager().getTeamsFromDatabase(competitionId);
+        List<Match> list =  MatchManager.sharedMatchManager().getAllMatchesFromDatabase(competitionId);
         return converListToArrayList(list);
     }
 
     @Override
     protected void getAllDataFromNetwork() {
-        TeamManager.sharedTeamManager().getTeamsFromNetwork(competitionId, new FinishCallBack<Team>() {
+        MatchManager.sharedMatchManager().getAllMatchesFromNetwork(competitionId, new FinishCallBack<Match>() {
             @Override
-            public void done(ArrayList<Team> list, Exception e) {
+            public void done(ArrayList<Match> list, Exception e) {
                 callbackDoneFinish(list, e);
             }
         });
     }
 
-    @Override
     protected void sort(ArrayList list) {
-        Collections.sort(list, new Comparator<Team>() {
+        Collections.sort(list, new Comparator<Match>() {
             @Override
-            public int compare(Team lhs, Team rhs) {
-                if (lhs.getRank() == rhs.getRank()) {
-                    return lhs.getTeamId() - rhs.getTeamId(); //为了配合iOS版本的排序算法
-                } else {
-                    if (lhs.getRank() == 100) {
-                        return 1;
-                    } else if (rhs.getRank() == 100) {
-                        return -1;
-                    } else if (lhs.getRank() == 0) {
-                        return 1;
-                    } else if (rhs.getRank() == 0) {
-                        return -1;
-                    } else {
-                        return lhs.getRank() - rhs.getRank();
-                    }
-                }
+            public int compare(Match lhs, Match rhs) {
+                return rhs.getMatchId() - lhs.getMatchId();
             }
         });
     }
 
-
     @Override
     protected View getLayoutInflater(LayoutInflater inflater) {
-        return inflater.inflate(R.layout.detail_team_cell,null);
+        return inflater.inflate(R.layout.detail_match_cell,null);
     }
 
     @Override
@@ -105,7 +91,7 @@ public class TeamFragment extends DetailFragment {
             convertView = getLayoutInflater(inflater);
             holder = new ViewHolder();
 
-                /*得到各个控件的对象*/
+            /*得到各个控件的对象*/
             holder.image = (ImageView) convertView.findViewById(R.id.team_badge);
             holder.teamName = (TextView) convertView.findViewById(R.id.team_name);
             holder.goalCount = (TextView) convertView.findViewById(R.id.team_goalCount);
@@ -117,18 +103,7 @@ public class TeamFragment extends DetailFragment {
             holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
         }
 
-        Team team = (Team)data.get(position);
-        if (team.getBadgeImage() != null && !team.getBadgeImage().isEmpty()) {
-            Picasso.with(activity).load(team.getBadgeImage())
-                    .placeholder(R.drawable.team_placeholder1)
-                    .error(R.drawable.team_placeholder1)
-                    .into(holder.image);
-        }
-        holder.teamName.setText(team.getName());
-        holder.goalCount.setText("进 " + team.getGoalCount());
-        holder.missCount.setText("失 " + team.getMissCount());
-        holder.group.setText("组 " + team.getGroupNo());
-        holder.rank.setText(TeamManager.sharedTeamManager().getRankString(team.getRank()));
+
         return convertView;
     }
 
@@ -140,5 +115,4 @@ public class TeamFragment extends DetailFragment {
         TextView rank;
         TextView group;
     }
-
 }

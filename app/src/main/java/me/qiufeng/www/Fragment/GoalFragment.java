@@ -33,7 +33,7 @@ public class GoalFragment extends DetailFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View parentView = inflater.inflate(R.layout.fragment_goal, container, false);
+        View parentView = inflater.inflate(R.layout.fragment_goal_crad, container, false);
         setupView(parentView);
         return parentView;
     }
