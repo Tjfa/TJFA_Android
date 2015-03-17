@@ -123,7 +123,10 @@ public class TeamFragment extends DetailFragment {
                     .placeholder(R.drawable.team_placeholder1)
                     .error(R.drawable.team_placeholder1)
                     .into(holder.image);
+        } else {
+            holder.image.setImageResource(R.drawable.team_placeholder1);
         }
+
         holder.teamName.setText(team.getName());
         holder.goalCount.setText("进 " + team.getGoalCount());
         holder.missCount.setText("失 " + team.getMissCount());

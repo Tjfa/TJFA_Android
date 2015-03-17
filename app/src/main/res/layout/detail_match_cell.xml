@@ -3,92 +3,128 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <ImageView
-        android:src="@drawable/team_placeholder1"
-        android:id="@+id/teamA_badge"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/cell_left_margin"
-        android:layout_marginTop="20dp" />
+        android:layout_centerVertical="true"
+        android:orientation="vertical">
 
-    <ImageView
-        android:src="@drawable/team_placeholder2"
-        android:id="@+id/teamB_badge"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginBottom="20dp"
+        <ImageView
+            android:id="@+id/match_teamA_badge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/team_placeholder1" />
+
+        <TextView
+            android:id="@+id/match_teamA_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginLeft="@dimen/cell_right_margin"
-        android:layout_marginTop="20dp" />
+        android:layout_centerVertical="true"
+        android:orientation="vertical"
+        android:layout_marginLeft="@dimen/cell_right_margin">
+
+        <ImageView
+            android:id="@+id/match_teamB_badge"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:src="@drawable/team_placeholder1" />
+
+        <TextView
+            android:id="@+id/match_teamB_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:singleLine="true"
+            android:textSize="12dp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
+        android:layout_height="100dp"
         android:layout_centerInParent="true"
         android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="40dp"
+            android:layout_gravity="center"
             android:layout_height="wrap_content"
             android:orientation="vertical">
+
             <TextView
-                android:background="@color/yellow"
+                android:id="@+id/match_goalA"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:gravity="center"
-                android:textSize="21dp"
                 android:textColor="@color/red"
-                android:textStyle="bold"
-                android:text="3"/>
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
             <TextView
+                android:id="@+id/match_penaltyA"
                 android:layout_width="match_parent"
                 android:layout_height="20dp"
                 android:gravity="center"
-                android:textSize="13dp"
                 android:textColor="@color/red"
-                android:text="(7)"/>
+                android:textSize="13dp" />
         </LinearLayout>
 
 
         <LinearLayout
-            android:background="@color/yellow"
             android:layout_width="100dp"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
 
             <TextView
+                android:id="@+id/match_date"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/textGray"
-                android:textSize="10dp"
-                android:text="2014年12月12日"/>
+                android:textSize="10dp" />
 
             <TextView
+                android:id="@+id/match_property"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/textGray"
-                android:textSize="20dp"
-                android:text="1/4决赛"/>
+                android:textSize="20dp" />
 
             <TextView
+                android:id="@+id/match_time"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/textGray"
-                android:textSize="10dp"
-                android:text="12:15"/>
+                android:textSize="10dp" />
 
             <TextView
+                android:id="@+id/match_is_start"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:textColor="@color/textGray"
-                android:textSize="14dp"
-                android:text="已结束" />
+                android:textSize="14dp" />
 
         </LinearLayout>
 
@@ -96,23 +132,26 @@
         <LinearLayout
             android:layout_width="40dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:orientation="vertical">
+
             <TextView
-                android:background="@color/yellow"
+                android:id="@+id/match_goalB"
                 android:layout_width="match_parent"
-                android:layout_height="60dp"
+                android:layout_height="40dp"
                 android:gravity="center"
-                android:textSize="21dp"
+                android:text="3"
                 android:textColor="@color/red"
-                android:textStyle="bold"
-                android:text="3"/>
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
             <TextView
+                android:id="@+id/match_penaltyB"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:textSize="13dp"
                 android:textColor="@color/red"
-                android:text="(7)"/>
+                android:textSize="13dp" />
         </LinearLayout>
 
     </LinearLayout>
