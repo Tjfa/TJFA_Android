@@ -19,12 +19,19 @@ public class AVTeam extends AVObject {
         put("teamId",teamId);
     }
 
-    public String getBadgeImage() {
-        return getString("emblemPath");
+    public String getEmblemPath() {
+        if (getString("emblemPath") == null) {
+            return "";
+        } else {
+            return getString("emblemPath");
+        }
     }
 
-    public void setBadgeImage(String badgeImage) {
-        put("emblemPath",badgeImage);
+    public void setEmblemPath(String emblemPath) {
+        if (emblemPath == null) {
+            emblemPath = "";
+        }
+        put("emblemPath",emblemPath);
     }
 
     public int getGroupGoalCount() {

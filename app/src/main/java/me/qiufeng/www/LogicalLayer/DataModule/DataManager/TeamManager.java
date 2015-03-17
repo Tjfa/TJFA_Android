@@ -80,7 +80,9 @@ public class TeamManager {
         for (AVTeam avTeam : avTeams) {
             Team team = new Team();
             team.setTeamId(avTeam.getTeamId());
-            team.setBadgeImage(avTeam.getBadgeImage());
+            Log.i("-----", avTeam.getName());
+            Log.i("-----",avTeam.getEmblemPath());
+            team.setBadgeImage(avTeam.getEmblemPath());
             team.setGoalCount(avTeam.getGoalCount());
             team.setMissCount(avTeam.getMissCount());
             team.setGroupGoalCount(avTeam.getGroupGoalCount());

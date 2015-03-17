@@ -72,10 +72,6 @@ public class Team {
     }
 
     public void setBadgeImage(String badgeImage) {
-        Log.i("","badge ++++++++ :" + badgeImage.toString());
-        if (badgeImage == null) {
-            Log.i("","=====================null");
-        }
         this.badgeImage = badgeImage;
     }
 

@@ -14,64 +14,107 @@ import java.util.ArrayList;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.MatchManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.PlayerManager;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.TeamManager;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Match;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 import me.qiufeng.www.R;
 
 
 public class MainActivity extends ActionBarActivity {
+
+    private void jumpToBenbu() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this,CompetitionActivity.class);
+        startActivity(intent);
+    }
+
+    private void jumpToJiading() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this,CompetitionActivity.class);
+        startActivity(intent);
+    }
+
+    private void jumpToNews() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this,NewsActivity.class);
+        startActivity(intent);
+    }
+
+    private void jumpToAbout() {
+        Intent intent = new Intent();
+        intent.setClass(MainActivity.this,SettingAcvitity.class);
+        startActivity(intent);
+    }
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-//        for (int i = 1; i <= 6; i++ ) {
-//        MatchManager.sharedMatchManager().getMatchesFromNetwork(i, new FinishCallBack<Match>() {
-//            @Override
-//            public void done(ArrayList<Match> list, Exception e) {
-//                for (Match match : list) {
-//                    Log.i("",""+match.getMatchId());
-//                }
-//            }
-//        });
-//
-//        PlayerManager.sharedPlayerManager().getAllPlayersFromNetwork(i,new FinishCallBack<Player>() {
-//            @Override
-//            public void done(ArrayList<Player> list, Exception e) {
-//                for (Player player : list) {
-//                    Log.i("",""+player.getName());
-//                }
-//            }
-//        });}
-
-        Button newsButton = (Button)findViewById(R.id.news_button);
-        newsButton.setOnClickListener(new View.OnClickListener() {
+        Button newsImageButton = (Button)findViewById(R.id.competition_news_image);
+        newsImageButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,NewsActivity.class);
-                startActivity(intent);
+                jumpToNews();
             }
         });
 
-        Button competitionButton = (Button)findViewById(R.id.competition_button);
-        competitionButton.setOnClickListener(new View.OnClickListener() {
+        Button newsTitleButton = (Button)findViewById(R.id.competition_news_title);
+        newsTitleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,CompetitionActivity.class);
-                startActivity(intent);
+                jumpToNews();
             }
         });
 
-        Button settingButton = (Button)findViewById(R.id.setting_button);
-        settingButton.setOnClickListener(new View.OnClickListener() {
+        Button aboutTitleButton = (Button)findViewById(R.id.competition_about_title);
+        aboutTitleButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent();
-                intent.setClass(MainActivity.this,SettingAcvitity.class);
-                startActivity(intent);
+                jumpToAbout();
+            }
+        });
+
+        Button aboutImageButton = (Button)findViewById(R.id.competition_about_image);
+        aboutImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToAbout();
+            }
+        });
+
+        Button jiadingTitleButton = (Button)findViewById(R.id.competition_jiading_title);
+        jiadingTitleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToJiading();
+            }
+        });
+
+        Button jiadingImageButton = (Button)findViewById(R.id.competition_jiading_image);
+        jiadingImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToJiading();
+            }
+        });
+
+        Button benbuTitleButton = (Button)findViewById(R.id.competition_benbu_title);
+        benbuTitleButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToBenbu();
+            }
+        });
+
+        Button benbuImageButton = (Button)findViewById(R.id.competition_benbu_image);
+        newsImageButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                jumpToBenbu();
             }
         });
     }

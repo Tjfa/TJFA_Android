@@ -92,10 +92,16 @@ public class AVMatch extends AVObject {
     }
 
     public String getHint() {
+        if (getString("hint") == null) {
+            return "";
+        }
         return getString("hint");
     }
 
     public void setHint(String hint) {
+        if (hint == null) {
+            hint = "";
+        }
         put("hint",hint);
     }
 
