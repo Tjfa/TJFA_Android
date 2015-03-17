@@ -28,8 +28,8 @@ import me.qiufeng.www.R;
 public class TeamFragment extends DetailFragment {
 
 
-    public TeamFragment(Activity activity) {
-        super(activity);
+    public TeamFragment(Activity activity, int competitionId) {
+        super(activity, competitionId);
         // Required empty public constructor
     }
 

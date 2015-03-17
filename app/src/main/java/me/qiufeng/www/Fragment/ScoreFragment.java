@@ -31,8 +31,8 @@ import me.qiufeng.www.R;
 public class ScoreFragment extends DetailFragment {
 
 
-    public ScoreFragment(Activity activity) {
-        super(activity);
+    public ScoreFragment(Activity activity, int competitionId) {
+        super(activity, competitionId);
         // Required empty public constructor
     }
 

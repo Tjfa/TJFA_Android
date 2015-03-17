@@ -32,8 +32,8 @@ import me.qiufeng.www.R;
 public class MatchFragment extends DetailFragment {
 
 
-    public MatchFragment(Activity activity) {
-        super(activity);
+    public MatchFragment(Activity activity, int competitionId) {
+        super(activity, competitionId);
         // Required empty public constructor
     }
 

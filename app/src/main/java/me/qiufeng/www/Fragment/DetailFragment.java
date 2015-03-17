@@ -19,6 +19,7 @@ import java.util.ArrayList;
 
 import me.qiufeng.www.Category.TJFAProgressHUD;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.TeamManager;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Player;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Team;
 import me.qiufeng.www.R;
@@ -39,18 +40,19 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     Activity activity;
     ProgressHUD progressHUD;
 
-    public DetailFragment(Activity activity) {
+    public DetailFragment(Activity activity, int competitionId) {
         // Required empty public constructor
         this.activity = activity;
+        this.competitionId = competitionId;
     }
 
     protected void setupView(View parentView) {
-        competitionId = 6;
         listView =(ListView) parentView.findViewById(R.id.list_view);
 
         data = getAllDataFromDatabase();
         sort(data);
         if (data == null || data.isEmpty()) {
+            progressHUD = TJFAProgressHUD.showLoadingProgress(activity);
             getAllDataFromNetwork();
         }
 

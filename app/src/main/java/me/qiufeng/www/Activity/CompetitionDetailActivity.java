@@ -15,6 +15,8 @@ import me.qiufeng.www.Fragment.RedCardFragment;
 import me.qiufeng.www.Fragment.ScoreFragment;
 import me.qiufeng.www.Fragment.TeamFragment;
 import me.qiufeng.www.Fragment.YellowCardFragment;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
 import me.qiufeng.www.ResideMenu.ResideMenu;
 import me.qiufeng.www.ResideMenu.ResideMenuItem;
@@ -30,6 +32,8 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
     private ResideMenuItem scoreItem;
     private ResideMenuItem teamItem;
 
+    private Competition competition;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -37,8 +41,11 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
 
         setupMenu();
 
+        competition = (Competition)getIntent().getSerializableExtra("competition");
+
         if (savedInstanceState == null) {
-            changeFragment(new MatchFragment(this));
+            changeFragment(new MatchFragment(this, competition.getCompetitionId()));
+            setTitle("比赛");
         }
     }
 
@@ -48,12 +55,12 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         resideMenu.setScaleValue(0.6f);
 
 
-        matchItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "比 赛");
-        topGoalItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "射手榜");
-        redCardItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "红 牌");
-        yellowCardItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "黄 牌");
-        scoreItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "积 分");
-        teamItem = new ResideMenuItem(this, R.drawable.abc_ab_share_pack_holo_dark, "球 队");
+        matchItem = new ResideMenuItem(this, R.drawable.menu_match, "比 赛");
+        topGoalItem = new ResideMenuItem(this, R.drawable.menu_top_list, "射手榜");
+        redCardItem = new ResideMenuItem(this, R.drawable.menu_red_card, "红 牌");
+        yellowCardItem = new ResideMenuItem(this, R.drawable.menu_yellow_card, "黄 牌");
+        scoreItem = new ResideMenuItem(this, R.drawable.menu_group, "积 分");
+        teamItem = new ResideMenuItem(this, R.drawable.menu_team, "球 队");
 
         matchItem.setOnClickListener(this);
         topGoalItem.setOnClickListener(this);
@@ -105,22 +112,22 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
     public void onClick(View view) {
         if (view == redCardItem) {
             setTitle("红牌");
-            changeFragment(new RedCardFragment(this));
+            changeFragment(new RedCardFragment(this, competition.getCompetitionId()));
         } else if (view == yellowCardItem) {
             setTitle("黄牌");
-            changeFragment(new YellowCardFragment(this));
+            changeFragment(new YellowCardFragment(this, competition.getCompetitionId()));
         } else if (view == topGoalItem) {
             setTitle("射手榜");
-            changeFragment(new GoalFragment(this));
+            changeFragment(new GoalFragment(this, competition.getCompetitionId()));
         } else if (view == scoreItem) {
             setTitle("积分");
-            changeFragment(new ScoreFragment(this));
+            changeFragment(new ScoreFragment(this, competition.getCompetitionId()));
         } else if (view == teamItem) {
             setTitle("球队");
-            changeFragment(new TeamFragment(this));
+            changeFragment(new TeamFragment(this, competition.getCompetitionId()));
         } else if (view == matchItem) {
             setTitle("比赛");
-            changeFragment(new MatchFragment(this));
+            changeFragment(new MatchFragment(this, competition.getCompetitionId()));
         }
         resideMenu.closeMenu();
     }

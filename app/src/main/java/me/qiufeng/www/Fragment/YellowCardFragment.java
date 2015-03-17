@@ -24,9 +24,9 @@ import me.qiufeng.www.R;
 public class YellowCardFragment extends DetailFragment {
 
 
-    public YellowCardFragment(Activity activity) {
+    public YellowCardFragment(Activity activity, int competitionId) {
         // Required empty public constructor
-        super(activity);
+        super(activity, competitionId);
     }
 
 

@@ -24,9 +24,9 @@ import me.qiufeng.www.R;
 public class GoalFragment extends DetailFragment {
 
 
-    public GoalFragment(Activity activity) {
+    public GoalFragment(Activity activity, int competitionId) {
         // Required empty public constructor
-        super(activity);
+        super(activity, competitionId);
     }
 
 
