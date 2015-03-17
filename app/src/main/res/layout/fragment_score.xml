@@ -8,7 +8,7 @@
         android:layout_height="30dp">
 
         <TextView
-            android:layout_width="100dp"
+            android:layout_width="60dp"
             android:layout_height="match_parent"
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/cell_left_margin"
@@ -16,15 +16,17 @@
             android:singleLine="true"
             android:textColor="@color/red"
             android:textSize="17dp"
-            android:text="排名"/>
+            android:text="球队"/>
 
         <LinearLayout
-            android:layout_width="250dp"
+            android:layout_width="280dp"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true">
+            android:layout_centerInParent="true"
+            android:layout_alignParentRight="true"
+            android:orientation="horizontal">
 
             <TextView
-                android:layout_width="100dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="30dp"
@@ -32,31 +34,58 @@
                 android:singleLine="true"
                 android:textColor="@color/red"
                 android:textSize="17dp"
-                android:text="球员" />
+                android:text="积分" />
 
             <TextView
-                android:layout_width="120dp"
+                android:layout_width="40dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
                 android:ellipsize="end"
                 android:gravity="center"
                 android:singleLine="true"
                 android:textColor="@color/red"
                 android:textSize="17dp"
-                android:text="球队"/>
-        </LinearLayout>
+                android:text="胜"/>
 
-        <TextView
-            android:layout_width="60dp"
-            android:layout_height="60dp"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="@dimen/cell_right_margin"
-            android:ellipsize="end"
-            android:gravity="center"
-            android:singleLine="true"
-            android:textColor="@color/red"
-            android:textSize="17dp"
-            android:text="进球"/>
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textSize="17dp"
+                android:text="平"/>
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textSize="17dp"
+                android:text="负"/>
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textSize="17dp"
+                android:text="进"/>
+
+            <TextView
+                android:layout_width="40dp"
+                android:layout_height="match_parent"
+                android:ellipsize="end"
+                android:gravity="center"
+                android:singleLine="true"
+                android:textColor="@color/red"
+                android:textSize="17dp"
+                android:text="净"/>
+        </LinearLayout>
     </RelativeLayout>
 
 
@@ -64,7 +93,7 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context="me.qiufeng.www.Fragment.GoalFragment">
+        tools:context="me.qiufeng.www.Fragment.RedCardFragment">
 
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipe_container"

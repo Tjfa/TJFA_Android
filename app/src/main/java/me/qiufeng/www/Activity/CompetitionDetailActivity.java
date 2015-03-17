@@ -12,6 +12,7 @@ import android.view.View;
 import me.qiufeng.www.Fragment.GoalFragment;
 import me.qiufeng.www.Fragment.MatchFragment;
 import me.qiufeng.www.Fragment.RedCardFragment;
+import me.qiufeng.www.Fragment.ScoreFragment;
 import me.qiufeng.www.Fragment.TeamFragment;
 import me.qiufeng.www.Fragment.YellowCardFragment;
 import me.qiufeng.www.R;
@@ -113,7 +114,7 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
             changeFragment(new GoalFragment(this));
         } else if (view == scoreItem) {
             setTitle("积分");
-            //changeFragment(new TeamFragment(this));
+            changeFragment(new ScoreFragment(this));
         } else if (view == teamItem) {
             setTitle("球队");
             changeFragment(new TeamFragment(this));

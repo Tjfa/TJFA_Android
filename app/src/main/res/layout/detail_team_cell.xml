@@ -6,7 +6,7 @@
     <ImageView
         android:src="@drawable/team_placeholder1"
         android:id="@+id/team_badge"
-        android:layout_width="60dp"
+        android:layout_width="100dp"
         android:layout_height="60dp"
         android:layout_marginBottom="20dp"
         android:layout_marginLeft="@dimen/cell_left_margin"
@@ -14,7 +14,7 @@
 
     <LinearLayout
         android:layout_width="200dp"
-        android:layout_height="match_parent"
+        android:layout_height="60dp"
         android:layout_centerInParent="true"
         android:orientation="vertical">
 

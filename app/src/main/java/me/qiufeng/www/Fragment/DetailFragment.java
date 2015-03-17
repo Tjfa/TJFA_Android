@@ -33,7 +33,7 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     abstract protected void sort(ArrayList data);
     SwipeRefreshLayout swipeLayout;
     protected ListView listView;
-    protected DetailAdapter detailAdapter;
+    protected BaseAdapter detailAdapter;
     protected ArrayList data;
     protected int competitionId;
     Activity activity;
@@ -54,11 +54,15 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
             getAllDataFromNetwork();
         }
 
-        detailAdapter = new DetailAdapter(activity);
+        detailAdapter = getDetailAdapter(activity);
         listView.setAdapter(detailAdapter);
 
         swipeLayout =(SwipeRefreshLayout) parentView.findViewById(R.id.swipe_container);
         swipeLayout.setOnRefreshListener(this);
+    }
+
+    protected BaseAdapter getDetailAdapter(Activity activity) {
+        return new DetailAdapter(activity);
     }
 
     @Override
