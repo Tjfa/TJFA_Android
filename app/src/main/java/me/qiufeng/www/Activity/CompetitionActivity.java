@@ -25,6 +25,7 @@ import me.qiufeng.www.Const.AppConst;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.CompetitionManager;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.FinishCallBack;
 import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.Competition;
+import me.qiufeng.www.LogicalLayer.DataModule.LocalModule.News;
 import me.qiufeng.www.R;
 
 public class CompetitionActivity extends ActionBarActivity {
@@ -41,7 +42,8 @@ public class CompetitionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
 
-        type = 2;
+        type =(int) getIntent().getSerializableExtra("type");
+
         if (type == 1) {
             setTitle("本部");
         } else {

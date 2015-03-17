@@ -29,7 +29,7 @@
 
     <ImageView android:layout_width="@dimen/cell_indicator_width"
         android:layout_height="@dimen/cell_indiator_height"
-        android:src="@drawable/ic_launcher"
+        android:src="@drawable/indicator"
         android:layout_alignParentRight="true"
         android:layout_marginRight="@dimen/cell_right_margin"
         android:layout_centerVertical="true" />

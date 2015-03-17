@@ -97,6 +97,7 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            resideMenu.openMenu(ResideMenu.DIRECTION_RIGHT);
             return true;
         }
 

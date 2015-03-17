@@ -109,6 +109,9 @@ public class CompetitionManager {
         Collections.sort(list, new Comparator<Competition>() {
             @Override
             public int compare(Competition lhs, Competition rhs) {
+                if (rhs.getTime().equals(lhs.getTime())) {
+                    return rhs.getCompetitionId() - lhs.getCompetitionId();
+                }
                 return  rhs.getTime().compareTo(lhs.getTime());
             }
         });

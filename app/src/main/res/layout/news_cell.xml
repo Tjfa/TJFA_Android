@@ -11,7 +11,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/cell_right_margin"
-        android:src="@drawable/ic_launcher" />
+        android:src="@drawable/indicator" />
 
     <LinearLayout
         android:layout_width="match_parent"
