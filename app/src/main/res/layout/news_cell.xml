@@ -27,10 +27,10 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal">
             <View
-                android:id="@+id/mark_view"
+                android:id="@+id/is_read"
                 android:layout_width="10dp"
                 android:layout_height="10dp"
-                android:background="@color/red"
+                android:background="@drawable/shape"
                 android:layout_gravity="center_vertical"/>
 
             <TextView

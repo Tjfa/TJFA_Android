@@ -1,5 +1,6 @@
 package me.qiufeng.www.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -59,9 +60,19 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
                 Bundle bundle = new Bundle();
                 News news = data.get(position);
                 NewsManager.sharedNewsManager().updateNewsToRead(news);
+                adapter.notifyDataSetChanged();
                 bundle.putSerializable("news", news);
                 intent.putExtras(bundle);
                 startActivity(intent);
+            }
+        });
+
+        listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                AlertDialog.Builder builder =new AlertDialog.Builder(NewsActivity.this);
+                builder.setTitle("标记未读");
+                return false;
             }
         });
 
@@ -172,6 +183,7 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
                 holder = new ViewHolder();
 
                 /*得到各个控件的对象*/
+                holder.isRead = convertView.findViewById(R.id.is_read);
                 holder.title = (TextView) convertView.findViewById(R.id.cell_title);
                 holder.preContent = (TextView) convertView.findViewById(R.id.cell_precontent);
                 holder.time = (TextView) convertView.findViewById(R.id.cell_time);
@@ -180,13 +192,19 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
                 holder = (ViewHolder)convertView.getTag();//取出ViewHolder对象
             }
 
-            Log.w("",""+position);
-            if (position == data.size()-1 && hasMore) {
+            if (position == data.size() - 1 && hasMore) {
                 loadEarlierData();
             }
 
             News news = (News)getItem(position);
             /*设置TextView显示的内容，即我们存放在动态数组中的数据*/
+
+            if (news.getIsRead()) {
+                holder.isRead.setVisibility(View.INVISIBLE);
+            } else {
+                holder.isRead.setVisibility(View.VISIBLE);
+            }
+
             holder.title.setText(news.getTitle());
             holder.preContent.setText(news.getPrecontent());
 
@@ -197,6 +215,7 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
 
 
         public final class ViewHolder {
+            public View isRead;
             public TextView title;
             public TextView preContent;
             public TextView time;

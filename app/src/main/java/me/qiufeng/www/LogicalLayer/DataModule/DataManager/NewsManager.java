@@ -109,6 +109,10 @@ public class NewsManager {
         for (AVNews avNews : avNewses) {
             News news = new News();
             news.setNewsId(avNews.getNewsId());
+            News oldNews = newsDao.queryForId(avNews.getNewsId());
+            if (oldNews != null) {
+                news.setIsRead(oldNews.getIsRead());
+            }
             news.setTitle(avNews.getTitle());
             news.setPrecontent(avNews.getPrecontent());
             news.setContent(avNews.getContent());
