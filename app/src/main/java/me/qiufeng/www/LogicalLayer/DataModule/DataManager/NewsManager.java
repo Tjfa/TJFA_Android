@@ -38,6 +38,19 @@ public class NewsManager {
         newsDao = DatabaseHelper.getHelper().getNewsRuntimeDao();
     }
 
+    public void updateNewsStatus(News news) {
+        if (news.getIsRead()) {
+            updateNewsToUnread(news);
+        } else {
+            updateNewsToRead(news);
+        }
+    }
+
+    public void updateNewsToUnread(News news) {
+        news.setIsRead(false);
+        newsDao.update(news);
+    }
+
     public void updateNewsToRead(News news) {
         news.setIsRead(true);
         newsDao.update(news);

@@ -2,6 +2,7 @@ package me.qiufeng.www.Activity;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -70,9 +71,32 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
         listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                final News news = data.get(position);
                 AlertDialog.Builder builder =new AlertDialog.Builder(NewsActivity.this);
-                builder.setTitle("标记未读");
-                return false;
+
+                if (news.getIsRead()) {
+                    builder.setTitle("标记未读");
+                } else {
+                    builder.setTitle("标记已读");
+                }
+
+                builder.setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                        NewsManager.sharedNewsManager().updateNewsStatus(news);
+                        adapter.notifyDataSetChanged();
+                    }
+                });
+
+                builder.setNegativeButton("取消",new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
+                return true;
             }
         });
 
