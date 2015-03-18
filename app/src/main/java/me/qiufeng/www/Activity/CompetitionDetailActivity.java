@@ -9,6 +9,8 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.umeng.analytics.MobclickAgent;
+
 import me.qiufeng.www.Fragment.GoalFragment;
 import me.qiufeng.www.Fragment.MatchFragment;
 import me.qiufeng.www.Fragment.RedCardFragment;
@@ -141,5 +143,12 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
                 .commit();
     }
 
-
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

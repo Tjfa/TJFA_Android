@@ -12,6 +12,8 @@ public class Config {
     final static private String wechatAppKey = "wx6cba695c52dfdeb0";
     final static private String wechatAppSecret = "8fcb8d1e76265ac8d8dd683e8172205a";
 
+    final static private String umengKey = "55099ff5fd98c540660017c3";
+
     public static String getAvosCloudAppId() {
         return avosCloudAppId;
     }
@@ -34,5 +36,9 @@ public class Config {
 
     public static String getWechatAppSecret() {
         return wechatAppSecret;
+    }
+
+    public static String getUmengKey() {
+        return umengKey;
     }
 }

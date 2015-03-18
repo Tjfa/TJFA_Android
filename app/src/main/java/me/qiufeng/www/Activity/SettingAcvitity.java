@@ -10,6 +10,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
+
 import java.util.HashMap;
 
 import cn.sharesdk.framework.Platform;
@@ -134,4 +136,12 @@ public class SettingAcvitity extends ActionBarActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
+    }
 }

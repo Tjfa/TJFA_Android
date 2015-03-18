@@ -18,6 +18,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.umeng.analytics.MobclickAgent;
 import com.walnutlabs.android.ProgressHUD;
 
 import java.util.ArrayList;
@@ -283,5 +284,14 @@ public class CompetitionActivity extends ActionBarActivity {
             TextView title;
         }
 
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }

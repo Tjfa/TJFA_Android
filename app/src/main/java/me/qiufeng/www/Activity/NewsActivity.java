@@ -19,6 +19,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.umeng.analytics.MobclickAgent;
 import com.walnutlabs.android.ProgressHUD;
 
 import java.text.SimpleDateFormat;
@@ -244,6 +245,15 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
             public TextView preContent;
             public TextView time;
         }
+    }
+
+    public void onResume() {
+        super.onResume();
+        MobclickAgent.onResume(this);
+    }
+    public void onPause() {
+        super.onPause();
+        MobclickAgent.onPause(this);
     }
 }
 
