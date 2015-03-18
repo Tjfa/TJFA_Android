@@ -123,6 +123,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
+                android:singleLine="true"
+                android:ellipsize="end"
                 android:textColor="@color/textGray"
                 android:textSize="14dp" />
 

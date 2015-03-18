@@ -163,7 +163,11 @@ public class MatchFragment extends DetailFragment {
         holder.date.setText(getDate(match.getDate()));
         holder.property.setText(getProperty(match.getMatchProperty()));
         holder.time.setText(getTime(match.getDate()));
-        holder.isStart.setText(getIsStart(match.getIsStart()));
+        if (match.getHint() != null && !match.getHint().isEmpty()) {
+            holder.isStart.setText(match.getHint());
+        } else {
+            holder.isStart.setText(getIsStart(match.getIsStart()));
+        }
         holder.goalA.setText("" + match.getScoreA());
         holder.goalB.setText("" + match.getScoreB());
 
