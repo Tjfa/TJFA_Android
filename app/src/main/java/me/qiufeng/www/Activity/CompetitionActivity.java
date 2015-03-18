@@ -2,6 +2,7 @@ package me.qiufeng.www.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarActivity;
@@ -44,8 +45,9 @@ public class CompetitionActivity extends ActionBarActivity {
         setContentView(R.layout.activity_competition);
 
         type =(int) getIntent().getSerializableExtra("type");
-
+        View view = findViewById(R.id.competition_bg);
         if (type == 1) {
+            view.setBackgroundResource(R.drawable.benbu_bg);
             setTitle("本部");
         } else {
             setTitle("嘉定");
@@ -212,6 +214,18 @@ public class CompetitionActivity extends ActionBarActivity {
         }
 
 
+        public int getCup(int position) {
+            int cup = position % 3;
+            switch (cup) {
+                case 0:
+                    return R.drawable.competition_cup_0;
+                case 1:
+                    return R.drawable.competition_cup_1;
+                default:
+                    return R.drawable.competition_cup_2;
+            }
+        }
+
         public View getView(final int position, View convertView, ViewGroup parent) {
             ViewHolder holder;
 
@@ -243,6 +257,7 @@ public class CompetitionActivity extends ActionBarActivity {
                     break;
                 case CompetitionCell:
                     holder.title.setText(competition.getName());
+                    holder.cupImage.setImageResource(getCup(position));
                     break;
             }
 
