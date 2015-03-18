@@ -92,7 +92,9 @@
     <orderEntry type="library" exported="" name="support-v4-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="android-async-http-1.4.6" level="project" />
     <orderEntry type="library" exported="" name="ormlite-jdbc-4.48" level="project" />
+    <orderEntry type="library" exported="" name="QuickIntegrater" level="project" />
     <orderEntry type="library" exported="" name="appcompat-v7-21.0.3" level="project" />
+    <orderEntry type="library" exported="" name="libammsdk" level="project" />
     <orderEntry type="library" exported="" name="support-annotations-21.0.3" level="project" />
     <orderEntry type="library" exported="" name="nineoldandroids-library-2.4.0" level="project" />
     <orderEntry type="library" exported="" name="ormlite-core-4.48" level="project" />

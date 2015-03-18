@@ -42,7 +42,7 @@
             android:layout_width="50dp"
             android:layout_height="50dp"
             android:layout_gravity="center"
-            android:src="@drawable/team_placeholder1" />
+            android:src="@drawable/team_placeholder2" />
 
         <TextView
             android:id="@+id/match_teamB_name"

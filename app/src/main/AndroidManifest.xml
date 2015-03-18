@@ -8,6 +8,13 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+
     <application
         android:name=".AppDelegate.AppDelegate"
         android:allowBackup="true"
@@ -41,11 +48,14 @@
         </activity>
         <activity
             android:name=".Activity.SettingAcvitity"
-            android:label="@string/title_activity_setting_acvitity" >
-        </activity>
-        <activity
-            android:name=".Activity.RedCardActivity"
-            android:label="@string/title_activity_red_card" >
+            android:label="关于"
+            android:exported="true">
+            <intent-filter>
+                <data android:scheme="tencent100371282" />
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
         </activity>
     </application>
 

@@ -5,6 +5,8 @@ import android.content.Context;
 
 import com.avos.avoscloud.AVOSCloud;
 import com.avos.avoscloud.AVObject;
+import com.tencent.mm.sdk.openapi.IWXAPI;
+import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVMatch;
@@ -32,6 +34,7 @@ public class AppDelegate extends Application {
         AVObject.registerSubclass(AVTeam.class);
         AVObject.registerSubclass(AVNews.class);
         AVObject.registerSubclass(AVPlayer.class);
+
 
     }
 
