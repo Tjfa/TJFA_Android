@@ -1,11 +1,14 @@
 package me.qiufeng.www.Activity;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import java.util.HashMap;
 
@@ -18,6 +21,7 @@ import cn.sharesdk.wechat.friends.Wechat;
 import cn.sharesdk.wechat.moments.WechatMoments;
 import me.qiufeng.www.Config.AppInfo;
 import me.qiufeng.www.Config.Config;
+import me.qiufeng.www.LogicalLayer.DataModule.DataManager.DatabaseManager;
 import me.qiufeng.www.LogicalLayer.DataModule.ShareManager;
 import me.qiufeng.www.R;
 
@@ -70,7 +74,7 @@ public class SettingAcvitity extends ActionBarActivity {
         contact.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareSDK.initSDK(SettingAcvitity.this);
+                ShareSDK.initSDK(SettingAcvitity.this, Config.getShareSDKAppKey());
                 Platform.ShareParams sp = new Platform.ShareParams();
                 String text = AppInfo.deviceInfo();
                 text += "          如果收信人没有自动填上，请您输入 tongjizuxie@gmail.com        请在下方填入您对我们的建议:－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－－";
@@ -79,6 +83,30 @@ public class SettingAcvitity extends ActionBarActivity {
                 Platform mail = ShareSDK.getPlatform(Email.NAME);
                 mail.setPlatformActionListener(null);
                 mail.share(sp);
+            }
+        });
+
+        View deleteData = findViewById(R.id.about_delete_data);
+        deleteData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder =new AlertDialog.Builder(SettingAcvitity.this);
+                builder.setTitle("童鞋！你要知道你在干嘛!");
+                builder.setNegativeButton("我流量多，任性！", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DatabaseManager.sharedDatabaseManager().clearAllTable();
+                        Toast.makeText(SettingAcvitity.this, "删除成功",Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                builder.setPositiveButton("我错了T_T", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                builder.show();
             }
         });
     }
