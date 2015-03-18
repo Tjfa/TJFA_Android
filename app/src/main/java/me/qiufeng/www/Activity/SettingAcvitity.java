@@ -7,11 +7,17 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import java.util.HashMap;
+
 import cn.sharesdk.framework.Platform;
 import cn.sharesdk.framework.ShareSDK;
 import cn.sharesdk.onekeyshare.OnekeyShare;
 import cn.sharesdk.system.email.Email;
+import cn.sharesdk.system.text.ShortMessage;
+import cn.sharesdk.wechat.friends.Wechat;
+import cn.sharesdk.wechat.moments.WechatMoments;
 import me.qiufeng.www.Config.AppInfo;
+import me.qiufeng.www.Config.Config;
 import me.qiufeng.www.LogicalLayer.DataModule.ShareManager;
 import me.qiufeng.www.R;
 
@@ -28,7 +34,31 @@ public class SettingAcvitity extends ActionBarActivity {
         tell.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShareSDK.initSDK(SettingAcvitity.this);
+                ShareSDK.initSDK(SettingAcvitity.this, Config.getShareSDKAppKey());
+
+                HashMap<String, Object> wechatMomentMap = new HashMap<String, Object>();
+                wechatMomentMap.put("SortId","1");
+                wechatMomentMap.put("AppId", Config.getWechatAppKey());
+                wechatMomentMap.put("AppSecret", Config.getWechatAppSecret());
+                wechatMomentMap.put("ShareByAppClient","true");
+                wechatMomentMap.put("Enable","true");
+                ShareSDK.setPlatformDevInfo(WechatMoments.NAME, wechatMomentMap);
+
+                HashMap<String, Object> wechatFriendMap = new HashMap<String, Object>();
+                wechatFriendMap.put("SortId","2");
+                wechatFriendMap.put("AppId", Config.getWechatAppKey());
+                wechatFriendMap.put("AppSecret", Config.getWechatAppSecret());
+                wechatFriendMap.put("ShareByAppClient","true");
+                wechatFriendMap.put("Enable","true");
+                ShareSDK.setPlatformDevInfo(Wechat.NAME,wechatFriendMap);
+
+                HashMap<String, Object> messageMap = new HashMap<String, Object>();
+                messageMap.put("SortId","3");
+                messageMap.put("ShareByAppClient","true");
+                messageMap.put("Enable","true");
+                ShareSDK.setPlatformDevInfo(ShortMessage.NAME, messageMap);
+
+
                 OnekeyShare oks = new OnekeyShare();
                 oks.setNotification(R.drawable.about_logo, "同济足协App分享");
                 oks.setText(AppInfo.sharedMessage());
