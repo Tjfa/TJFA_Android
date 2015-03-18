@@ -8,6 +8,7 @@ import com.avos.avoscloud.AVObject;
 import com.tencent.mm.sdk.openapi.IWXAPI;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
 
+import cn.sharesdk.framework.ShareSDK;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVCompetition;
 import me.qiufeng.www.LogicalLayer.DataModule.AVModule.AVMatch;
 import me.qiufeng.www.Config.Config;
@@ -34,7 +35,6 @@ public class AppDelegate extends Application {
         AVObject.registerSubclass(AVTeam.class);
         AVObject.registerSubclass(AVNews.class);
         AVObject.registerSubclass(AVPlayer.class);
-
 
     }
 

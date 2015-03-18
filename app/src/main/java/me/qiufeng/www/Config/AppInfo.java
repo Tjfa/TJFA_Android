@@ -1,7 +1,14 @@
 package me.qiufeng.www.Config;
 
+import android.app.Application;
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import android.os.Build;
+import android.telephony.TelephonyManager;
+import android.util.Log;
+
+import java.util.HashMap;
 
 import me.qiufeng.www.AppDelegate.AppDelegate;
 
@@ -14,16 +21,50 @@ public class AppInfo {
     }
 
     private static String getApplicationName() {
-        PackageManager packageManager = null;
-        ApplicationInfo applicationInfo = null;
-        try {
-            packageManager = AppDelegate.getAppContext().getPackageManager();
-            applicationInfo = packageManager.getApplicationInfo(AppDelegate.getAppContext().getPackageName(), 0);
-        } catch (PackageManager.NameNotFoundException e) {
-            applicationInfo = null;
-        }
+        PackageManager packageManager = getPackageManager();
+        ApplicationInfo applicationInfo = getApplicationInfo();
         String applicationName =
                 (String) packageManager.getApplicationLabel(applicationInfo);
         return applicationName;
     }
+
+    private static Context getContext() {
+        return AppDelegate.getAppContext();
+    }
+
+    private static PackageManager getPackageManager() {
+        return getContext().getPackageManager();
+    }
+
+    private static String getPackageName() {
+        return getContext().getPackageName();
+    }
+
+    private static  ApplicationInfo getApplicationInfo() {
+        try {
+            return getPackageManager().getApplicationInfo(getContext().getPackageName(), 0);
+        } catch (PackageManager.NameNotFoundException e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+
+    public static  String getVersion() {
+        try {
+            return  getPackageManager().getPackageInfo(getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            return "";
+        }
+    }
+
+    public static String deviceInfo() {
+        Build bd = new Build();
+        HashMap<String, String> map= new HashMap<>();
+        map.put("model",bd.MODEL);
+        map.put("version", getVersion());
+        return map.toString();
+    }
+
+
 }
