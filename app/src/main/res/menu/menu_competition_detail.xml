@@ -7,5 +7,5 @@
         android:icon="@drawable/menu_bar_item"
         android:orderInCategory="3"
         app:showAsAction="ifRoom|withText"
-        android:title="item1"/>
+        android:title="菜单"/>
 </menu>

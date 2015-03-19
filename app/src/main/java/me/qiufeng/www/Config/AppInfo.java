@@ -17,7 +17,7 @@ import me.qiufeng.www.AppDelegate.AppDelegate;
  */
 public class AppInfo {
     static public String sharedMessage() {
-        return "hi~~我亲爱的小伙伴～～我发现了关于同济足球的一个很棒的App,叫做" + getApplicationName() + "现在已经升级到%@版本了,快去看看吧～～";
+        return "hi~~我亲爱的小伙伴～～同济足协安卓版已经发布啦～ 到各大安卓应用市场即可下载！快去看看吧～～";
     }
 
     private static String getApplicationName() {
