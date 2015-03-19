@@ -45,7 +45,7 @@ public class SettingAcvitity extends ActionBarActivity {
                 wechatMomentMap.put("AppId", Config.getWechatAppKey());
                 wechatMomentMap.put("AppSecret", Config.getWechatAppSecret());
                 wechatMomentMap.put("ShareByAppClient","true");
-                wechatMomentMap.put("Enable","true");
+                wechatMomentMap.put("Enable","false");
                 ShareSDK.setPlatformDevInfo(WechatMoments.NAME, wechatMomentMap);
 
                 HashMap<String, Object> wechatFriendMap = new HashMap<String, Object>();
@@ -53,7 +53,7 @@ public class SettingAcvitity extends ActionBarActivity {
                 wechatFriendMap.put("AppId", Config.getWechatAppKey());
                 wechatFriendMap.put("AppSecret", Config.getWechatAppSecret());
                 wechatFriendMap.put("ShareByAppClient","true");
-                wechatFriendMap.put("Enable","true");
+                wechatFriendMap.put("Enable","false");
                 ShareSDK.setPlatformDevInfo(Wechat.NAME,wechatFriendMap);
 
                 HashMap<String, Object> messageMap = new HashMap<String, Object>();
