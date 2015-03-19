@@ -28,6 +28,7 @@ import me.qiufeng.www.R;
  * A simple {@link Fragment} subclass.
  */
 abstract public class DetailFragment extends Fragment implements SwipeRefreshLayout.OnRefreshListener {
+    public static final String COMPETITION_ID= "competitionId";
 
     abstract protected ArrayList getAllDataFromDatabase();
     abstract protected void getAllDataFromNetwork();
@@ -40,8 +41,23 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     Activity activity;
     ProgressHUD progressHUD;
 
+    public DetailFragment() {
+
+    }
+
+    public static DetailFragment newInstance(Activity activity, int competitionId) {
+        Fragment fragment = new Fragment();
+        Bundle args = new Bundle();
+        args.putInt(COMPETITION_ID, competitionId);
+        fragment.setArguments(args);
+        return (DetailFragment)fragment;
+    }
+
+    public void setArg(Activity activity, int competitionId) {
+
+    }
+
     public DetailFragment(Activity activity, int competitionId) {
-        // Required empty public constructor
         this.activity = activity;
         this.competitionId = competitionId;
     }
@@ -49,18 +65,24 @@ abstract public class DetailFragment extends Fragment implements SwipeRefreshLay
     protected void setupView(View parentView) {
         listView =(ListView) parentView.findViewById(R.id.list_view);
 
+
+        swipeLayout =(SwipeRefreshLayout) parentView.findViewById(R.id.swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+
         data = getAllDataFromDatabase();
         sort(data);
         if (data == null || data.isEmpty()) {
             progressHUD = TJFAProgressHUD.showLoadingProgress(activity);
             getAllDataFromNetwork();
+        } else {
+            onRefresh();
+            swipeLayout.setProgressViewOffset(false, 0, 100);
+            swipeLayout.setRefreshing(true);
         }
 
         detailAdapter = getDetailAdapter(activity);
         listView.setAdapter(detailAdapter);
 
-        swipeLayout =(SwipeRefreshLayout) parentView.findViewById(R.id.swipe_container);
-        swipeLayout.setOnRefreshListener(this);
     }
 
     protected BaseAdapter getDetailAdapter(Activity activity) {

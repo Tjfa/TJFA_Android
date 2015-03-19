@@ -23,10 +23,15 @@ import me.qiufeng.www.R;
  */
 public class GoalFragment extends DetailFragment {
 
+    public GoalFragment() {
+        super();
+    }
 
-    public GoalFragment(Activity activity, int competitionId) {
-        // Required empty public constructor
-        super(activity, competitionId);
+    public static GoalFragment newInstance(Activity activity, int competitionId) {
+        GoalFragment fragment = new GoalFragment();
+        fragment.activity = activity;
+        fragment.competitionId = competitionId;
+        return fragment;
     }
 
 

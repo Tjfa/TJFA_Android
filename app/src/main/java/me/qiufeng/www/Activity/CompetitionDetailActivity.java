@@ -46,7 +46,7 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         competition = (Competition)getIntent().getSerializableExtra("competition");
 
         if (savedInstanceState == null) {
-            changeFragment(new MatchFragment(this, competition.getCompetitionId()));
+            changeFragment(MatchFragment.newInstance(this, competition.getCompetitionId()));
             setTitle("比赛");
         }
     }
@@ -115,22 +115,22 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
     public void onClick(View view) {
         if (view == redCardItem) {
             setTitle("红牌");
-            changeFragment(new RedCardFragment(this, competition.getCompetitionId()));
+            changeFragment(RedCardFragment.newInstance(this, competition.getCompetitionId()));
         } else if (view == yellowCardItem) {
             setTitle("黄牌");
-            changeFragment(new YellowCardFragment(this, competition.getCompetitionId()));
+            changeFragment(YellowCardFragment.newInstance(this, competition.getCompetitionId()));
         } else if (view == topGoalItem) {
             setTitle("射手榜");
-            changeFragment(new GoalFragment(this, competition.getCompetitionId()));
+            changeFragment(GoalFragment.newInstance(this, competition.getCompetitionId()));
         } else if (view == scoreItem) {
             setTitle("积分");
-            changeFragment(new ScoreFragment(this, competition.getCompetitionId()));
+            changeFragment(ScoreFragment.newInstance(this, competition.getCompetitionId()));
         } else if (view == teamItem) {
             setTitle("球队");
-            changeFragment(new TeamFragment(this, competition.getCompetitionId()));
+            changeFragment(TeamFragment.newInstance(this, competition.getCompetitionId()));
         } else if (view == matchItem) {
             setTitle("比赛");
-            changeFragment(new MatchFragment(this, competition.getCompetitionId()));
+            changeFragment(MatchFragment.newInstance(this, competition.getCompetitionId()));
         }
         resideMenu.closeMenu();
     }

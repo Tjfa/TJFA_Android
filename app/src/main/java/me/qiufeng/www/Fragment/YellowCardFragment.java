@@ -23,11 +23,17 @@ import me.qiufeng.www.R;
  */
 public class YellowCardFragment extends DetailFragment {
 
-
-    public YellowCardFragment(Activity activity, int competitionId) {
-        // Required empty public constructor
-        super(activity, competitionId);
+    public YellowCardFragment() {
+        super();
     }
+
+    public static YellowCardFragment newInstance(Activity activity, int competitionId) {
+        YellowCardFragment fragment = new YellowCardFragment();
+        fragment.activity = activity;
+        fragment.competitionId = competitionId;
+        return fragment;
+    }
+
 
 
     @Override

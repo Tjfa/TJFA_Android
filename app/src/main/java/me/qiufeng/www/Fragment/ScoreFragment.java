@@ -31,10 +31,17 @@ import me.qiufeng.www.R;
 public class ScoreFragment extends DetailFragment {
 
 
-    public ScoreFragment(Activity activity, int competitionId) {
-        super(activity, competitionId);
-        // Required empty public constructor
+    public ScoreFragment() {
+
     }
+
+    public static ScoreFragment newInstance(Activity activity, int competitionId) {
+        ScoreFragment fragment = new ScoreFragment();
+        fragment.activity = activity;
+        fragment.competitionId = competitionId;
+        return fragment;
+    }
+
 
 
     @Override

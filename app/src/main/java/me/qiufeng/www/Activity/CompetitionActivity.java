@@ -45,6 +45,14 @@ public class CompetitionActivity extends ActionBarActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_competition);
 
+        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.competition_swipe_container);
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getLasterCompetitions(false);
+            }
+        });
+
         type =(int) getIntent().getSerializableExtra("type");
         View view = findViewById(R.id.competition_bg);
         if (type == 1) {
@@ -59,6 +67,10 @@ public class CompetitionActivity extends ActionBarActivity {
         data = getDataListWithCompetitionList(localData);
         if (data ==  null || data.isEmpty()) {
             getLasterCompetitions(true);
+        } else  {
+            getLasterCompetitions(false);
+            swipeRefreshLayout.setProgressViewOffset(false, 0, 100);
+            swipeRefreshLayout.setRefreshing(true);
         }
 
         listView =(ListView) findViewById(R.id.competition_list_view);
@@ -77,13 +89,6 @@ public class CompetitionActivity extends ActionBarActivity {
             }
         });
 
-        swipeRefreshLayout = (SwipeRefreshLayout)findViewById(R.id.competition_swipe_container);
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                getLasterCompetitions(false);
-            }
-        });
     }
 
     private void getLasterCompetitions(final boolean showProgress) {

@@ -46,9 +46,17 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_news);
 
+
+        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.news_swipe_container);
+        swipeLayout.setOnRefreshListener(this);
+
         data = NewsManager.sharedNewsManager().getAllNewsFromDatabase();
         if (data == null || data.isEmpty()) {
             loadLastestData(true);
+        } else {
+            onRefresh();
+            swipeLayout.setProgressViewOffset(false, 0, 100);
+            swipeLayout.setRefreshing(true);
         }
 
         listView = (ListView)findViewById(R.id.news_list_view);
@@ -100,9 +108,6 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
                 return true;
             }
         });
-
-        swipeLayout = (SwipeRefreshLayout) findViewById(R.id.news_swipe_container);
-        swipeLayout.setOnRefreshListener(this);
     }
 
     @Override
@@ -171,7 +176,7 @@ public class NewsActivity extends ActionBarActivity implements SwipeRefreshLayou
                     TJFAProgressHUD.showErrorProgress(NewsActivity.this);
                 }
 
-                swipeLayout.setRefreshing(false);
+               swipeLayout.setRefreshing(false);
             }
         });
     }

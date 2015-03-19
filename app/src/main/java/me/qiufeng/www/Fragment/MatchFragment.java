@@ -31,10 +31,15 @@ import me.qiufeng.www.R;
  */
 public class MatchFragment extends DetailFragment {
 
+    public MatchFragment() {
 
-    public MatchFragment(Activity activity, int competitionId) {
-        super(activity, competitionId);
-        // Required empty public constructor
+    }
+
+    public static MatchFragment newInstance(Activity activity, int competitionId) {
+        MatchFragment fragment = new MatchFragment();
+        fragment.activity = activity;
+        fragment.competitionId = competitionId;
+        return fragment;
     }
 
 

@@ -23,12 +23,16 @@ import me.qiufeng.www.R;
  */
 public class RedCardFragment extends DetailFragment {
 
+    public RedCardFragment() {
 
-    public RedCardFragment(Activity activity, int competitionId) {
-        // Required empty public constructor
-        super(activity, competitionId);
     }
 
+    public static RedCardFragment newInstance(Activity activity, int competitionId) {
+        RedCardFragment fragment = new RedCardFragment();
+        fragment.activity = activity;
+        fragment.competitionId = competitionId;
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

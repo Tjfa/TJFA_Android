@@ -27,11 +27,17 @@ import me.qiufeng.www.R;
  */
 public class TeamFragment extends DetailFragment {
 
-
-    public TeamFragment(Activity activity, int competitionId) {
-        super(activity, competitionId);
-        // Required empty public constructor
+    public TeamFragment() {
+        super();
     }
+
+    public static TeamFragment newInstance(Activity activity, int competitionId) {
+        TeamFragment fragment = new TeamFragment();
+        fragment.activity = activity;
+        fragment.competitionId = competitionId;
+        return fragment;
+    }
+
 
 
     @Override
