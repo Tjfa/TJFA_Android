@@ -24,7 +24,6 @@ import cn.sharesdk.wechat.moments.WechatMoments;
 import me.qiufeng.www.Config.AppInfo;
 import me.qiufeng.www.Config.Config;
 import me.qiufeng.www.LogicalLayer.DataModule.DataManager.DatabaseManager;
-import me.qiufeng.www.LogicalLayer.DataModule.ShareManager;
 import me.qiufeng.www.R;
 
 public class SettingAcvitity extends ActionBarActivity {
