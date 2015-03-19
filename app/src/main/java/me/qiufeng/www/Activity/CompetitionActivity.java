@@ -51,6 +51,7 @@ public class CompetitionActivity extends ActionBarActivity {
             view.setBackgroundResource(R.drawable.benbu_bg);
             setTitle("本部");
         } else {
+            view.setBackgroundResource(R.drawable.jiading_bg);
             setTitle("嘉定");
         }
 

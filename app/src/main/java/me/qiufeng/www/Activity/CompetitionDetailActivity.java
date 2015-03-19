@@ -78,7 +78,7 @@ public class CompetitionDetailActivity extends ActionBarActivity implements View
         resideMenu.addMenuItem(scoreItem, ResideMenu.DIRECTION_RIGHT);
         resideMenu.addMenuItem(teamItem, ResideMenu.DIRECTION_RIGHT);
 
-        resideMenu.setBackground(R.drawable.ic_launcher);
+        resideMenu.setBackground(R.drawable.detail_bg);
         resideMenu.setSwipeDirectionDisable(ResideMenu.DIRECTION_LEFT);
     }
 
